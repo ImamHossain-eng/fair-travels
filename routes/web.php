@@ -35,10 +35,18 @@ Route::middleware('user')->group(function () {
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });
 
+Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+
 
 
 Route::group(['prefix'=>'admin', 'middleware'=>'admin'], function() {
     Route::get('/', [AdminController::class, 'home'])->name('admin');
+
+    ROute::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
+    //Admin Function
+    Route::get('/admin', [AdminController::class, 'admin_index'])->name('admin.admin.index');
+    Route::view('/admin/create', 'admin.admin.create')->name('admin.admin.create');
+    Route::post('/admin', [AdminController::class, 'admin_store'])->name('admin.admin.store');
 
     //user function
     Route::get('/users', [AdminController::class, 'user_index'])->name('admin.user.index');

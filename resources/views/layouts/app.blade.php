@@ -17,7 +17,7 @@
 <aside class="sidebar-nav-wrapper">
     <div class="navbar-logo">
         <a href="{{ route('home') }}">
-            <img src="{{ asset('images/icons/travel.png') }}" class="w-50" title="FAIR TRAVELS AND TOURS" alt="logo"/>
+            <img src="{{ asset('images/icons/travel.png') }}" class="w-25" title="FAIR TRAVELS AND TOURS" alt="logo"/> User Panel
         </a>
     </div>
     <nav class="sidebar-nav">

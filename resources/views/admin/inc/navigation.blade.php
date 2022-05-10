@@ -1,4 +1,14 @@
 <ul>
+
+    <li class="nav-item">
+        <a href="{{ route('homepage') }}">
+              <span class="icon">
+                  <i class="fa fa-home"></i>
+              </span>
+            <span class="text">Homepage</span>
+        </a>
+    </li>
+
     <li class="nav-item @if(request()->routeIs('admin')) active @endif">
         <a href="{{ route('admin') }}">
               <span class="icon">
@@ -11,6 +21,16 @@
             <span class="text">{{ __('Dashboard') }}</span>
         </a>
     </li>
+
+    <li class="nav-item @if(request()->routeIs('admin.admin*')) active @endif">
+        <a href="{{ route('admin.admin.index') }}">
+            <span class="icon">
+                <i class="fa fa-user"></i>
+            </span>
+            <span class="text">Admin</span>
+        </a>
+    </li>
+    
 
     <li class="nav-item @if(request()->routeIs('admin.user*')) active @endif">
         <a href="{{ route('admin.user.index') }}">

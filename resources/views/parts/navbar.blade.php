@@ -48,8 +48,16 @@
             <span class="navbar-text">
               <ul>
                   <li>
-                    <a href="/login">Login</a>
-                    <a href="/register">Register</a>
+                    @if(auth()->check())
+                      @if(auth()->user()->role == 'user')
+                        <a href="/home">Dashboard</a>
+                        @else 
+                        <a href="/admin">Dashboard</a>
+                      @endif
+                    @else 
+                      <a href="/login">Login</a>
+                      <a href="/register">Register</a>
+                    @endif
                   </li>
               </ul>
             </span>

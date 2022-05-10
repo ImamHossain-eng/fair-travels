@@ -12,6 +12,32 @@ class AdminController extends Controller
     public function home(){
         return view('admin.home');
     }
+    public function profile(){
+        return view('admin.profile');
+    }
+    public function admin_index(){
+        $users = User::where('role', 'admin')->latest()->paginate(10);
+        return view('admin.admin.index', compact('users'));
+    }
+    public function admin_store(Request $request){
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user = new User;
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->role = 'admin';
+
+        $user->save();
+
+        return redirect()->route('admin.admin.index')->with('success', 'Successfully Created new Admin.');
+
+    }
     public function user_index(){
         $users = User::where('role', 'user')->latest()->paginate(10);
         return view('admin.user.index', compact('users'));
@@ -28,6 +54,7 @@ class AdminController extends Controller
 
         $user = User::find($id);
         $oldPass = $user->password;
+        $userRole = $user->role;
 
         if($request->input('password') != null){
             $password = bcrypt($request->input('password'));
@@ -41,12 +68,24 @@ class AdminController extends Controller
 
         $user->save();
 
-        return redirect()->route('admin.user.index')->with('success', 'Successfully updated.');
+        if($userRole == 'admin'){
+            return redirect()->route('admin.admin.index')->with('success', 'Successfully Updates.');
+        }else{
+            return redirect()->route('admin.user.index')->with('success', 'Successfully updated.');
+        }
     }
 
     public function user_destroy($id){
-        User::find($id)->delete();
-        return redirect()->route('admin.user.index')->with('error', 'Successfully Removed.');
+        $user = User::find($id);
+        $userRole = $user->role;
+        $user->delete();
+        if($userRole == 'admin'){
+            return redirect()->route('admin.admin.index')->with('error', 'Successfully Removed.');
+        }else{
+            return redirect()->route('admin.user.index')->with('error', 'Successfully Removed.');
+        }
+
+        
     }
     public function message_index(){
         $messages = Message::latest()->paginate(10);
