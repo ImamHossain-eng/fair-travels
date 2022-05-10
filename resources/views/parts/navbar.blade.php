@@ -42,7 +42,7 @@
                 <a class="nav-link" href="#">ABOUT US</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">CONTACT US</a>
+                <a class="nav-link" href="/pages/contact">CONTACT US</a>
               </li>
             </ul>
             <span class="navbar-text">

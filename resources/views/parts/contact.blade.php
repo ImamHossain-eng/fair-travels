@@ -12,26 +12,28 @@
             <div class="col-md-6 col-sm-6">
               <h2 class="contact-header"> <i class="fa fa-envelope"></i> Contact Us</h2>
 
+              <form action="{{route('contact')}}" method="POST">
+                @csrf
                 <div class="contact-from">
                     <div class="form-group mb-2">
-                        <input type="text" name="name" class="form-control" placeholder="Enter Your Name">
+                        <input type="text" name="name" class="form-control" value="{{old('name')}}" placeholder="Enter Your Name">
                     </div>
                   
                     <div class="form-group mb-2">
-                        <input type="email" name="email" class="form-control" placeholder="Enter Your Email">
+                        <input type="email" name="email" class="form-control" value="{{old('email')}}" placeholder="Enter Your Email">
                     </div>
                 
                     <div class="form-group mb-2">
-                        <input type="number" name="mobile" class="form-control" placeholder="Enter Your Mobile Number">
+                        <input type="number" name="mobile" class="form-control" value="{{old('mobile')}}" placeholder="Enter Your Mobile Number">
                     </div>
                   
                     <div class="form-group mb-2">
-                        <textarea name="message" class="form-control" placeholder="Enter Your Message" rows="5"></textarea>
+                        <textarea name="body" value="{{old('body')}}" class="form-control" placeholder="Enter Your Message" rows="5"></textarea>
                     </div>
 
                     <input type="submit" value="Send" class="btn btn-primary w-100">
-
                 </div>
+            </form>
             </div>
         </div>
     </div>

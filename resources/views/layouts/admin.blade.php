@@ -4,18 +4,22 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>ADMIN PANEL</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/icons/travel.png')}}">
+
 
     <!-- ========== All CSS files linkup ========= -->
     <link rel="stylesheet" href="{{ asset('css/lineicons.css') }}"/>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <!-- ======== sidebar-nav start =========== -->
 <aside class="sidebar-nav-wrapper">
     <div class="navbar-logo">
-        <a href="{{ route('home') }}">
-            <img src="{{ asset('images/logo/logo.svg') }}" alt="logo"/>
+        <a href="{{ route('admin') }}">
+            <img src="{{ asset('images/icons/travel.png') }}" class="w-25" title="FAIR TRAVELS AND TOURS" alt="logo"/> ADMIN PANEL
         </a>
     </div>
     <nav class="sidebar-nav">

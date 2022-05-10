@@ -18,7 +18,7 @@
 </head>
 <body>
     @include('parts.navbar')
-
+    @include('inc.message')
     @yield('content')
 
     @include('parts.footer')
