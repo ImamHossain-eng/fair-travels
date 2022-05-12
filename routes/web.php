@@ -54,8 +54,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'], function() {
     Route::put('/user/{id}', [AdminController::class, 'user_update'])->name('admin.user.update');
     Route::delete('/user/{id}', [AdminController::class, 'user_destroy'])->name('admin.user.destroy');
 
+    //Package 
+    Route::get('/packages', [AdminController::class, 'package_index'])->name('admin.package.index');
+    Route::view('/package/create', 'admin.package.create')->name('admin.package.index');
+
     //message function
     Route::get('/messages', [AdminController::class, 'message_index'])->name('admin.message.index');
     Route::get('/message/{id}', [AdminController::class, 'message_show'])->name('admin.message.show');
+
 
 });

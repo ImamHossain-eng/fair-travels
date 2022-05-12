@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Message;
+use App\Models\Package;
 
 class AdminController extends Controller
 {
@@ -98,5 +99,10 @@ class AdminController extends Controller
             $message->save();
         }
         return view('admin.message.show', compact('message'));
+    }
+
+    public function package_index(){
+        $packages = Package::latest()->paginate(10);
+        return view('admin.package.index', compact('packages'));
     }
 }

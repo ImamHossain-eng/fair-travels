@@ -48,6 +48,18 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="col-12">
+                            <div class="input-style-1">
+                                <label for="mobile">{{ __('Mobile Number') }}</label>
+                                <input @error('mobile') class="form-control is-invalid" @enderror type="number" name="mobile" id="mobile" placeholder="{{ __('Mobile') }}" value="{{ old('mobile') }}" required autocomplete="mobile">
+                                @error('mobile')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
                         <!-- end col -->
                         <div class="col-12">
                             <div class="input-style-1">

@@ -41,6 +41,14 @@
         </a>
     </li>
 
+    <li class="nav-item @if(request()->routeIs('admin.package*')) active @endif">
+        <a href="{{ route('admin.package.index') }}">
+            <span class="icon">
+                <i class="fa fa-users"></i>
+            </span>
+            <span class="text">Packages</span>
+        </a>
+    </li>
   
 
     <li class="nav-item @if(request()->routeIs('admin.message*')) active @endif">

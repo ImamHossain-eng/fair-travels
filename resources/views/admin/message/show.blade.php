@@ -13,6 +13,7 @@
                     <p>
                         <strong>Sender Name:</strong> {{$message->name}} <br>
                         <strong>Sender Email:</strong> {{$message->email}} <br>
+                        <strong>Sender Mobile:</strong> {{$message->mobile}} <br>
                         <strong>Message Status:</strong>
                         @if($message->status == false)
                                     Unseen

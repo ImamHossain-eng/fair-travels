@@ -32,7 +32,7 @@
     </div>
     <p>
         <div class="container text-center" style="color:#EFEFEF">
-            Developed by <a href="#">Farhan and ..</a>
+            Developed by <a href="/">Farhan and Nahid Sultana Pinky</a>
         </div>
         <br>
     </p>

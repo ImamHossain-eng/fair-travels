@@ -55,8 +55,8 @@
                         <a href="/admin">Dashboard</a>
                       @endif
                     @else 
-                      <a href="/login">Login</a>
-                      <a href="/register">Register</a>
+                      <a href="/login" class="p-2">Login</a>
+                      <a href="/register" class="p-2">Sign Up</a>
                     @endif
                   </li>
               </ul>
