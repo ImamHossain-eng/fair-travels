@@ -105,4 +105,91 @@ class AdminController extends Controller
         $packages = Package::latest()->paginate(10);
         return view('admin.package.index', compact('packages'));
     }
+    public function package_store(Request $request){
+        //Validation
+        $this->validate($request, [
+            'tour_code' => ['required', 'string', 'unique:packages'],
+            'date' => 'required',
+            'amount' => 'required',
+            'country' => ['required', 'string'],
+            'city' => ['required', 'string'],
+            'description' => 'required'
+        ]);
+        //Image Upload
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $file_name = time().'.'.$extension;
+            Image::make($file)->resize(700, 400)->save(public_path('/images/packages/'.$file_name));
+        }
+        else{
+            $file_name = 'no_image.png';
+        }
+        //Initiate Object
+        $package = new Package;
+        //Assign properties
+        $package->tour_code = $request->input('tour_code');
+        $package->date = $request->input('date');
+        $package->amount = $request->input('amount');
+        $package->country = $request->input('country');
+        $package->city = $request->input('city');
+        $package->type = $request->input('type');
+        $package->image = $file_name;
+        $package->description = $request->input('description');
+        //Save the object to DB
+        $package->save();
+        //Response
+        return redirect()->route('admin.package.index')->with('success', 'Successfully Inserted.');
+    }
+    public function package_edit($id){
+        $package = Package::find($id);
+        return view('admin.package.edit', compact('package'));
+    }
+    public function package_update(Request $request, $id){
+        //Validation
+        $this->validate($request, [
+            'tour_code' => ['required', 'string'],
+            'date' => 'required',
+            'amount' => 'required',
+            'country' => ['required', 'string'],
+            'city' => ['required', 'string'],
+            'description' => 'required'
+        ]);
+        $package = Package::find($id);
+        $oldImg = $package->image;
+        //Image Upload
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $file_name = time().'.'.$extension;
+            Image::make($file)->resize(700, 400)->save(public_path('/images/packages/'.$file_name));
+            if($oldImg != 'no_image.png'){
+                File::delete(public_path('/images/packages/'.$oldImg));
+            }
+        }else{
+            $file_name = $oldImg;
+        }
+        //Assign properties
+        $package->tour_code = $request->input('tour_code');
+        $package->date = $request->input('date');
+        $package->amount = $request->input('amount');
+        $package->country = $request->input('country');
+        $package->city = $request->input('city');
+        $package->type = $request->input('type');
+        $package->image = $file_name;
+        $package->description = $request->input('description');
+        //Save the object to DB
+        $package->save();
+        //Response
+        return redirect()->route('admin.package.index')->with('warning', 'Successfully Updated.');
+    }
+    public function package_destroy($id){
+        $package = Package::find($id);
+        $oldImg = $package->image;
+        if($oldImg != 'no_image.png'){
+            File::delete(public_path('/images/packages/'.$oldImg));
+        }
+        $package->delete();
+        return redirect()->route('admin.package.index')->with('error', 'Successfully Removed.');
+    }
 }

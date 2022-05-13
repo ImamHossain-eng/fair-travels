@@ -15,7 +15,7 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
-            $table->string('tour_code');
+            $table->string('tour_code')->unique();
             $table->string('date');
             $table->integer('amount');
             $table->string('country');

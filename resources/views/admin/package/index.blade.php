@@ -31,7 +31,18 @@
                         <td>{{$package->amount}}</td>
                         <td>{{$package->country}}</td>
                         <td>{{$package->created_at->diffForHumans()}}</td>
-                        <td>Option</td>
+                        <td>
+                            <a href="/admin/package/{{$package->id}}/edit" title="Edit this package" class="btn btn-success">
+                                <i class="fa fa-check"></i>
+                            </a>
+                            <form action="{{route('admin.package.destroy', $package->id)}}" method="POST" style="display:inline;">
+                                @csrf 
+                                @method('DELETE')
+                                <button type="submit" title="Delete this package" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @empty 
                     <tr class="table-warning text-center">
