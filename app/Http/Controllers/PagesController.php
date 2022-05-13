@@ -43,4 +43,8 @@ class PagesController extends Controller
         $package = Package::where('tour_code', $tour_code)->first();
         return view('pages.package.show', compact('package'));
     }
+    public function package_book($tour_code){
+        $package = Package::where('tour_code', $tour_code)->first();
+        return view('pages.package.book', compact('package'));
+    }
 }

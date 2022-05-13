@@ -27,6 +27,7 @@ Route::get('/pages/{name}', [PagesController::class, 'pageByName'])->where('name
 //Dynamic Pages
 Route::get('/packages', [PagesController::class, 'package_list'])->name('package.list');
 Route::get('/packages/{tour_code}', [PagesController::class, 'package_show'])->name('package.show');
+Route::get('/package/{tour_code}/book', [PagesController::class, 'package_book'])->name('package.book');
 
 Auth::routes();
 

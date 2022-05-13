@@ -14,6 +14,7 @@
             <thead>
                 <tr>
                     <th>Serial</th>
+                    <th>Thumbnail</th>
                     <th>Tour Code</th>
                     <th>Date</th>
                     <th>Amount</th>
@@ -26,9 +27,10 @@
                 @forelse($packages as $key => $package)
                     <tr>
                         <td>{{$key+1}}</td>
+                        <td><img src="{{asset('images/packages/'.$package->image)}}" class="img-thumbnail" style="width: 100px; height: 70px;"></td>
                         <td>{{$package->tour_code}}</td>
-                        <td>{{$package->date}}</td>
-                        <td>{{$package->amount}}</td>
+                        <td>{{Carbon\Carbon::parse($package->date)->format('F d, Y')}}</td>
+                        <td>{{number_format($package->amount, 2)}}</td>
                         <td>{{$package->country}}</td>
                         <td>{{$package->created_at->diffForHumans()}}</td>
                         <td>
@@ -51,6 +53,7 @@
                 @endforelse
             </tbody>
         </table>
+        {{$packages->links()}}
     </div>
 </div>
 @endsection

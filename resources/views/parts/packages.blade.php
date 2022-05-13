@@ -10,7 +10,7 @@
                     <div class="card-body">
                       <h5 class="card-title">Price: {{number_format($package->amount, 2)}} /=</h5>
                       <h6 class="card-subtitle">Code: {{$package->tour_code}}</h6>
-                      <p class="card-subtitle">Date: {{\Carbon\Carbon::parse($package->date)->format('d M, Y')}}</p>
+                      <p class="card-subtitle">Date: {{\Carbon\Carbon::parse($package->date)->format('F d, Y')}}</p>
                       <hr>
                       <p class="card-text">
                           <strong>City: </strong> {{$package->city}} <br>

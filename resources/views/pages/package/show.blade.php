@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <p class="card-text">
                             <i class="fa fa-bandcamp"></i> <strong>Tour Code:</strong> {{$package->tour_code}} <br>
-                            <i class="fa fa-calendar"></i> <strong>Date:</strong> {{$package->tour_code}} <hr>
+                            <i class="fa fa-calendar"></i> <strong>Date:</strong> {{\Carbon\Carbon::parse($package->date)->format('F d, Y')}} <hr>
 
                             <i class="fa fa-arrow-right"></i> <strong>Type:</strong> {{$package->type}} <br>
                             <i class="fa fa-arrow-right"></i> <strong>Country:</strong> {{$package->country}} <br>
@@ -21,7 +21,7 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-success w-100">Book Now</button>
+                        <a href="/package/{{$package->tour_code}}/book" class="btn btn-success w-100">Book Now</a>
                     </div>
                 </div>
             </div>
