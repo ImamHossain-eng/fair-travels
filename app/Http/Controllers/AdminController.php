@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Message;
 use App\Models\Package;
 
+use Image;
+
 class AdminController extends Controller
 {
     public function home(){

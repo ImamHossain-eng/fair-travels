@@ -1,6 +1,17 @@
 p{
     text-align: justify;
 }
+.wrap{
+    display:flex;
+}
+.sidebar{
+    min-height:50vh;
+}
+.sidebar{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 10px;
+}
 .navbar-text ul{
     list-style: none;
 }

@@ -3,50 +3,26 @@
     <div class="container">
       <br>
         <div class="row">
+          @foreach($packages as $package)
             <div class="col-lg-4 col-md-4 col-sm-6 package-item mb-2">
                 <div class="card" style="width: 100%;">
-                    <img src="{{asset('images/1.jpg')}}" class="card-img-top" alt="...">
+                    <img src="{{asset('images/packages/'.$package->image)}}" class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h5 class="card-title">Package One</h5>
-                      <h6 class="card-subtitle">Package No</h6>
+                      <h5 class="card-title">Price: {{number_format($package->amount, 2)}} /=</h5>
+                      <h6 class="card-subtitle">Code: {{$package->tour_code}}</h6>
+                      <p class="card-subtitle">Date: {{\Carbon\Carbon::parse($package->date)->format('d M, Y')}}</p>
                       <hr>
                       <p class="card-text">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, in.
+                          <strong>City: </strong> {{$package->city}} <br>
+                          <strong>Country: </strong> {{$package->country}}
                       </p>
-                      <a href="#" class="btn btn-primary">Show Details</a>
+                      <a href="/packages/{{$package->tour_code}}" class="btn btn-primary">Show Details</a>
                     </div>
                   </div>
             </div>
+            @endforeach
 
-            <div class="col-lg-4 col-md-4 col-sm-6 package-item mb-2">
-                <div class="card" style="width: 100%;">
-                    <img src="{{asset('images/1.jpg')}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Package One</h5>
-                      <h6 class="card-subtitle">Package No</h6>
-                      <hr>
-                      <p class="card-text">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, in.
-                      </p>
-                      <a href="#" class="btn btn-primary">Show Details</a>
-                    </div>
-                  </div>
-            </div>
-
-            <div class="col-lg-4 col-md-4 col-sm-6 package-item mb-2">
-                <div class="card" style="width: 100%;">
-                    <img src="{{asset('images/1.jpg')}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Package One</h5>
-                      <h6 class="card-subtitle">Package No</h6>
-                      <hr>
-                      <p class="card-text">
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, in.
-                      </p>
-                      <a href="#" class="btn btn-primary">Show Details</a>
-                    </div>
-                  </div>
-            </div>
+            
 
         </div>
     </div>

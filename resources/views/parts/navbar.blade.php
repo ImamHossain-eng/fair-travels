@@ -1,7 +1,7 @@
 <section>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="/">
               <img src="{{asset('images/icons/travel.png')}}" style="height: 60px;width: 60px;">
               FAIR TRAVELS & TOURS
             </a>
@@ -11,8 +11,8 @@
           <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">HOME</a>
-              </li>
+                <a class="nav-link @if(request()->routeIs('homepage')) active @endif" aria-current="page" href="/">HOME</a>
+              </li>  
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   SERVICES
@@ -36,7 +36,7 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">PACKAGES</a>
+                <a class="nav-link @if(request()->routeIs('package*')) active @endif" href="/packages">PACKAGES</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">ABOUT US</a>

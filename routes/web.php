@@ -24,6 +24,10 @@ Route::post('/contact', [PagesController::class, 'contact'])->name('contact');
 //General static page
 Route::get('/pages/{name}', [PagesController::class, 'pageByName'])->where('name', 'contact');
 
+//Dynamic Pages
+Route::get('/packages', [PagesController::class, 'package_list'])->name('package.list');
+Route::get('/packages/{tour_code}', [PagesController::class, 'package_show'])->name('package.show');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

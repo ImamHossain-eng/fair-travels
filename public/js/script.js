@@ -6,9 +6,10 @@ function showService(){
       } else {
         servicesD.style.display = "none";
       }
-    
-
-
+}
+function showDesc(){
+  const x = document.getElementById('myDescription');
+  x.style.display = "block";  
 }
 
 function myFunction() {

@@ -103,12 +103,8 @@
                     <div class="copyright text-md-start">
                         <p class="text-sm">
                             Designed and Developed by
-                            <a
-                                    href="https://plainadmin.com"
-                                    rel="nofollow"
-                                    target="_blank"
-                            >
-                                PlainAdmin
+                            <a>
+                                CodeHUB IT
                             </a>
                         </p>
                     </div>
@@ -126,5 +122,10 @@
 <!-- ========= All Javascript files linkup ======== -->
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('/ckeditor/ckeditor.js') }}"></script>
+<script>
+    CKEDITOR.replaceAll( function( textarea, config ) {            
+        });
+</script>
 </body>
 </html>
