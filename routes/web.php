@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,13 +29,17 @@ Route::get('/pages/{name}', [PagesController::class, 'pageByName'])->where('name
 Route::get('/packages', [PagesController::class, 'package_list'])->name('package.list');
 Route::get('/packages/{tour_code}', [PagesController::class, 'package_show'])->name('package.show');
 Route::get('/package/{tour_code}/book', [PagesController::class, 'package_book'])->name('package.book');
+Route::post('/package/book', [PagesController::class, 'package_book_store'])->name('package.book.store');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware('user')->group(function () {
+Route::prefix('user')->middleware('user')->group(function () {
+
     Route::view('about', 'about')->name('about')->middleware('auth');
+    // Package Function
+    Route::get('/packages', [UserController::class, 'package_enrolled'])->name('user.package.index');
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');

@@ -22,6 +22,15 @@
         </a>
     </li>
 
+    <li class="nav-item @if(request()->routeIs('user.package*')) active @endif">
+        <a href="{{ route('user.package.index') }}">
+              <span class="icon">
+                <i class="fa fa-get-pocket"></i>
+              </span>
+            <span class="text">{{ __('Package Enrolled') }}</span>
+        </a>
+    </li>
+
   
 
     <li class="nav-item @if(request()->routeIs('about')) active @endif">

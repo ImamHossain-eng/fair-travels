@@ -1,5 +1,5 @@
 <section style="padding: 1em 0; background-color: aquamarine;">
-    <h1 class="service-header mb-2" onclick="showService();" style="cursor: pointer;"> <i class="fa fa-server"></i>  Show Our Services</h1>
+    <h1 class="service-header mb-2" onclick="showService();" style="cursor: pointer;"> <i class="fa fa-server"></i> Our Services</h1>
     {{-- <p class="text-center"><button class="btn btn-primary btn-lg">See All Services</button></p> --}}
     <div class="container" id="serviceID" style="display: none;">
       <br>

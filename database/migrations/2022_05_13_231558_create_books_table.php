@@ -25,6 +25,9 @@ class CreateBooksTable extends Migration
             $table->string('city');
             $table->string('zip')->nullable();
             $table->string('country');
+            $table->integer('amount');
+            $table->boolean('status')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

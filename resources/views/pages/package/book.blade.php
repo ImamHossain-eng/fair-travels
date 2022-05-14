@@ -5,14 +5,17 @@
         <div class="card-header">
             <div class="card-title">
                 <h3 class="text-center bg-warning p-2">
-                    Booking of Package {{$package->tour_code}}
+                    Package Booking
+                    {{-- Booking of Package {{$package->tour_code}} --}}
                 </h3>
             </div>
         </div>
         <div class="card-body">
-            <form action="">
+
+            <form action="{{route('package.book.store')}}" method="POST">
+                @csrf
                 * represents mandatory fields
-                <input type="hidden" value="{{$package->id}}">
+                <input type="hidden" name="package_id" value="{{$package->id}}">
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <select name="adult" class="form-control">
@@ -33,15 +36,15 @@
                 </div>
 
                 <div class="form-group mb-4">
-                    <input type="text" name="name" @auth value="{{ auth()->user()->name }}" disabled @endauth class="form-control" placeholder="Enter Your Name*">
+                    <input type="text" name="name" @auth value="{{ auth()->user()->name }}" @endauth class="form-control" placeholder="Enter Your Name*">
                 </div>
 
                 <div class="row mb-4">
                     <div class="col-md-6">
-                        <input type="email" name="email" @auth value="{{ auth()->user()->email }}" disabled @endauth class="form-control" placeholder="Enter Your Email*">
+                        <input type="email" name="email" @auth value="{{ auth()->user()->email }}" @endauth class="form-control" placeholder="Enter Your Email*">
                     </div>
                     <div class="col-md-6">
-                        <input type="number" name="mobile" @auth value="{{ auth()->user()->mobile }}" disabled @endauth class="form-control" placeholder="Enter Your Mobile Number*">
+                        <input type="number" name="mobile" @auth value="{{ auth()->user()->mobile }}" @endauth class="form-control" placeholder="Enter Your Mobile Number*">
                     </div>
                 </div>
 

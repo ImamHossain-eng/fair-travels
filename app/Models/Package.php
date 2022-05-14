@@ -25,4 +25,9 @@ class Package extends Model
         'updated_at'        
     ];
 
+    public function books(){
+        // return $this->morphMany(Book::class);
+        return $this->hasMany(Book::class);
+    }
+
 }

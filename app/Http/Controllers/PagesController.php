@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Message;
 use App\Models\Package;
+use App\Models\Book;
 
 class PagesController extends Controller
 {
@@ -46,5 +47,49 @@ class PagesController extends Controller
     public function package_book($tour_code){
         $package = Package::where('tour_code', $tour_code)->first();
         return view('pages.package.book', compact('package'));
+    }
+    public function package_book_store(Request $request){
+
+        $this->validate($request, [
+            'package_id' => 'required',
+            'adult' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'mobile' => 'required',
+            'street' => 'required',
+            'city' => 'required',
+            'country' => 'required'
+        ]);
+
+        $reqAdult = $request->input('adult');
+        $reqChildren = $request->input('children');
+        $reqPack = $request->input('package_id');
+
+        $packageDB = Package::find($reqPack);
+        $packAmount = $packageDB->amount;
+
+        $adultAmount = $reqAdult * $packAmount;
+        $childAmount = $reqChildren * $packAmount;
+
+        $totalAmount = $adultAmount + $childAmount;
+
+        $book = new Book;
+
+        $book->package_id = $reqPack;
+        $book->adult = $reqAdult;
+        $book->children = $reqChildren;
+        $book->name = $request->input('name');
+        $book->email = $request->input('email');
+        $book->mobile = $request->input('mobile');
+        $book->street = $request->input('street');
+        $book->city = $request->input('city');
+        $book->zip = $request->input('zip');
+        $book->country = $request->input('country');
+        $book->amount = $totalAmount;
+
+        $book->save();
+
+        return redirect()->route('package.list')->with('success', 'Successfully Ordered the Package.');
+
     }
 }
