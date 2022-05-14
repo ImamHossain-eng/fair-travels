@@ -31,6 +31,8 @@ Route::get('/packages/{tour_code}', [PagesController::class, 'package_show'])->n
 Route::get('/package/{tour_code}/book', [PagesController::class, 'package_book'])->name('package.book');
 Route::post('/package/book', [PagesController::class, 'package_book_store'])->name('package.book.store');
 
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -71,6 +73,18 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'], function() {
     Route::get('/package/{id}/edit', [AdminController::class, 'package_edit'])->name('admin.package.edit');
     Route::put('/package/{id}', [AdminController::class, 'package_update'])->name('admin.package.update');
     Route::delete('/package/{id}', [AdminController::class, 'package_destroy'])->name('admin.package.destroy');
+
+    //Package Enrolled
+    Route::get('/enrolled/package', [AdminController::class, 'enrolled_package'])->name('admin.enrolled.package');
+    Route::put('/enrolled/package/{id}', [AdminController::class, 'enrolled_update'])->name('admin.enrolled.update');
+    Route::delete('/enrolled/package/{id}', [AdminController::class, 'enrolled_destroy'])->name('admin.enrolled.destroy');
+
+    //Foreign Exchange rate
+    Route::get('/exchange', [AdminController::class, 'exchange_index'])->name('admin.exchange.index');
+    Route::view('/exchange/create', 'admin.exchange.create')->name('admin.exchange.create');
+    Route::post('/exchange', [AdminController::class, 'exchange_store'])->name('admin.exchange.store');
+    Route::delete('/exchange/{id}', [AdminController::class, 'exchange_destroy'])->name('admin.exchange.destroy');
+    Route::put('/exchange/{id}', [AdminController::class, 'exchange_status'])->name('admin.exchange.status');
 
     //message function
     Route::get('/messages', [AdminController::class, 'message_index'])->name('admin.message.index');

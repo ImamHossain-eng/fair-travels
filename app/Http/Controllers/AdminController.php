@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Message;
 use App\Models\Package;
+use App\Models\Book;
+use App\Models\Exchange;
 
 use Image;
 
@@ -193,5 +195,63 @@ class AdminController extends Controller
         }
         $package->delete();
         return redirect()->route('admin.package.index')->with('error', 'Successfully Removed.');
+    }
+    public function enrolled_package(){
+        $packages = Book::latest()->paginate(10);
+        return view('admin.package.booking', compact('packages'));
+    }
+    public function enrolled_update(Request $request, $id){
+        $pack = Book::find($id);
+        if($pack->status == false){
+            $pack->status = true;
+            $pack->save();
+            return redirect()->route('admin.enrolled.package')->with('success', 'Enrolled Package Updated');
+        }elseif($pack->status == true){
+            $pack->status = false;
+            $pack->save();
+            return redirect()->route('admin.enrolled.package')->with('success', 'Enrolled Package Updated');
+        }else{
+            return back()->with('error', 'Failed.');
+        }
+    }
+    public function enrolled_destroy($id){
+        Book::find($id)->delete();
+        return redirect()->route('admin.enrolled.package')->with('error', 'Successfully Removed.');
+    }
+    public function exchange_index(){
+        $exchanges = Exchange::latest()->paginate(10);
+        return view('admin.exchange.index', compact('exchanges'));
+    }
+    public function exchange_store(Request $request){
+        $this->validate($request, [
+            'name' => 'required|string',
+            'short_form' => 'required|string',
+            'rate' => 'required',
+        ]);
+
+        $exchange = new Exchange;
+
+        $exchange->name = $request->input('name');
+        $exchange->short_form = $request->input('short_form');
+        $exchange->rate = $request->input('rate');
+
+        $exchange->save();
+
+        return redirect()->route('admin.exchange.index')->with('success', 'Successfully Inserted.');
+    }
+    public function exchange_destroy($id){
+        Exchange::find($id)->delete();
+        return redirect()->route('admin.exchange.index')->with('error', 'Successfully Removed.');
+    }
+    public function exchange_status($id){
+        $exchange = Exchange::find($id);
+        $status = $exchange->status;
+        if($status == false){
+            $exchange->status = true;
+        }else{
+            $exchange->status = false;
+        }
+        $exchange->save();
+        return redirect()->route('admin.exchange.index')->with('warning', 'Successfully Updated.');
     }
 }

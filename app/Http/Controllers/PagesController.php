@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Models\Package;
 use App\Models\Book;
+use App\Models\Exchange;
 
 class PagesController extends Controller
 {
     public function homepage(){
         $packages = Package::latest()->take(3)->get();
-        return view('pages.HomePage', compact('packages'));
+        $exchanges = Exchange::where('status', true)->latest()->get();
+        return view('pages.HomePage', compact('packages', 'exchanges'));
     }
     public function pageByName($name){
         return view('pages.static.'.$name);

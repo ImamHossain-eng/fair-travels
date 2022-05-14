@@ -44,9 +44,27 @@
     <li class="nav-item @if(request()->routeIs('admin.package*')) active @endif">
         <a href="{{ route('admin.package.index') }}">
             <span class="icon">
-                <i class="fa fa-users"></i>
+                <i class="fa fa-shopping-bag"></i>
             </span>
             <span class="text">Packages</span>
+        </a>
+    </li>
+
+    <li class="nav-item @if(request()->routeIs('admin.enrolled*')) active @endif">
+        <a href="{{ route('admin.enrolled.package') }}">
+            <span class="icon">
+                <i class="fa fa-get-pocket"></i>
+            </span>
+            <span class="text">Enrolled Packages</span>
+        </a>
+    </li>
+
+    <li class="nav-item @if(request()->routeIs('admin.exchange*')) active @endif">
+        <a href="{{ route('admin.exchange.index') }}">
+            <span class="icon">
+                <i class="fa fa-money"></i>
+            </span>
+            <span class="text">Foreign Exchange</span>
         </a>
     </li>
   
