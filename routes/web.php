@@ -31,7 +31,9 @@ Route::get('/packages/{tour_code}', [PagesController::class, 'package_show'])->n
 Route::get('/package/{tour_code}/book', [PagesController::class, 'package_book'])->name('package.book');
 Route::post('/package/book', [PagesController::class, 'package_book_store'])->name('package.book.store');
 
-
+//Foreign Exchange for User or Visitor
+Route::get('/foreign-exchange', [PagesController::class, 'foreign_exchange'])->name('foreign.exchange');
+Route::post('/foreign-exchange', [PagesController::class, 'foreign_exchange_store'])->name('foreign.exchange.store');
 
 Auth::routes();
 
@@ -85,6 +87,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'], function() {
     Route::post('/exchange', [AdminController::class, 'exchange_store'])->name('admin.exchange.store');
     Route::delete('/exchange/{id}', [AdminController::class, 'exchange_destroy'])->name('admin.exchange.destroy');
     Route::put('/exchange/{id}', [AdminController::class, 'exchange_status'])->name('admin.exchange.status');
+
+    //Money exchange Request
+    Route::get('/money', [AdminController::class, 'money_request'])->name('admin.money.index');
 
     //message function
     Route::get('/messages', [AdminController::class, 'message_index'])->name('admin.message.index');

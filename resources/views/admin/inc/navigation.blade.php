@@ -67,6 +67,15 @@
             <span class="text">Foreign Exchange</span>
         </a>
     </li>
+
+    <li class="nav-item @if(request()->routeIs('admin.money*')) active @endif">
+        <a href="{{ route('admin.money.index') }}">
+            <span class="icon">
+                <i class="fa fa-money"></i>
+            </span>
+            <span class="text">Exchange Request</span>
+        </a>
+    </li>
   
 
     <li class="nav-item @if(request()->routeIs('admin.message*')) active @endif">

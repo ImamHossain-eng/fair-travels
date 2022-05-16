@@ -17,7 +17,7 @@ class CreateExchangesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('short_form');
-            $table->integer('rate');
+            $table->double('rate', 8, 2);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

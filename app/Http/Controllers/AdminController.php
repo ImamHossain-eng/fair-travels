@@ -9,6 +9,7 @@ use App\Models\Message;
 use App\Models\Package;
 use App\Models\Book;
 use App\Models\Exchange;
+use App\Models\Exchange_Book;
 
 use Image;
 
@@ -253,5 +254,9 @@ class AdminController extends Controller
         }
         $exchange->save();
         return redirect()->route('admin.exchange.index')->with('warning', 'Successfully Updated.');
+    }
+    public function money_request(){
+        $requests = Exchange_Book::latest()->paginate(10);
+        return view('admin.exchange.request', compact('requests'));
     }
 }

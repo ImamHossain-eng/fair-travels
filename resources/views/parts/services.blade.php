@@ -33,11 +33,12 @@
                 
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 service-img">
-                <div class="icon">
-                    <i class="fa fa-exchange fa-4x"></i>
-                </div>
-                <h3>Foreign Exchange</h3>
-                
+                <a href="/foreign-exchange" class="text-dark" class="serviceBtn">
+                    <div class="icon">
+                        <i class="fa fa-exchange fa-4x"></i>
+                    </div>
+                </a>
+                <h3>Foreign Exchange</h3>       
             </div>
         </div>
     </div>

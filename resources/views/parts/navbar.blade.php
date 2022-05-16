@@ -31,7 +31,7 @@
                     <a class="dropdown-item" href="#">PRODUCT DELIVERY</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">FOREIGN EXCHANGE</a>
+                    <a class="dropdown-item" href="/foreign-exchange">FOREIGN EXCHANGE</a>
                   </li>
                 </ul>
               </li>

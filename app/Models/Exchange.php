@@ -15,4 +15,8 @@ class Exchange extends Model
         'rate'
     ];
 
+    public function books(){
+        return $this->hasMany(Exchange_Book::class);
+    }
+
 }
