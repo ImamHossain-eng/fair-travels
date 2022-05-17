@@ -25,14 +25,14 @@
                     <div class="form-group mb-4">
                         <br> <br>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <select class="form-select btn-secondary" name="type" aria-label="Default select example" value="{{old('type')}}">
                                     <option value="null">Choose Exchange Option*</option>
                                     <option value="Cash">Cash</option>
                                     <option value="Home Delivery">Home Delivery</option>
                                 </select>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <select class="form-select btn-secondary" name="exchange_id" aria-label="Default select example" value="{{old('exchange_id')}}">
                                     <option value="null">Choose Currency*</option>
                                     @foreach($exchanges as $ex)
@@ -42,29 +42,28 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <input type="number" step="any" value="{{old('amount')}}" name="amount" class="form-control" placeholder="$ Amount*">
                             </div>
-                            <div class="col-md-3">
+                            {{-- <div class="col-md-3">
                                 <input type="text" disabled class="form-control" placeholder="Amount in BDT">
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="form-group mb-4">
                         <div class="row">
                             <div class="col-md-2"></div>
                             <div class="col-md-4">
-                                <input type="number" value="{{old('mobile')}}" name="mobile" class="form-control" placeholder="Mobile Number*" 
+                                <input type="number" name="mobile" class="form-control" placeholder="Mobile Number*" 
                                 @auth value="{{ auth()->user()->mobile }}" @endauth>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" name="email" value="{{old('email')}}" class="form-control" placeholder="Email*" 
+                                <input type="text" name="email" class="form-control" placeholder="Email*" 
                                 @auth value="{{ auth()->user()->email }}" @endauth>
                             </div>
                             <div class="col-md-2"></div>
                         </div>
                     </div>
-
                     <p class="text-center">
                         <input type="submit" value="Get Quote" class="btn btn-primary btn-lg">
                     </p>

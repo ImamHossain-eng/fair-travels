@@ -19,6 +19,7 @@
                     <th>Amount</th>
                     <th>Amount (BDT)</th>
                     <th>Requested</th>
+                    <th>Status</th>
                     <th>Option</th>
                 </tr>
             </thead>
@@ -32,7 +33,22 @@
                         <td>{{$req->amount}}</td>
                         <td>{{$req->bdt_amount}}</td>
                         <td>{{$req->created_at->diffForHumans()}}</td>
-                        <td>Option</td>
+                        <td>
+                            @if($req->status == false)
+                                Pending
+                            @else 
+                                Confirm
+                            @endif
+                        </td>
+                        <td>
+                            <form action="{{route('admin.money.status', $req->id)}}" method="POST">
+                                @csrf 
+                                @method('PUT')
+                                <button type="submit" class="btn btn-success" title="Change Status">
+                                    <i class="fa fa-check"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @empty 
                     <tr class="table-warning text-center">

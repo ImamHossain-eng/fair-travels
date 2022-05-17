@@ -31,6 +31,15 @@
         </a>
     </li>
 
+    <li class="nav-item @if(request()->routeIs('user.money*')) active @endif">
+        <a href="{{ route('user.money.index') }}">
+              <span class="icon">
+                <i class="fa fa-money"></i>
+              </span>
+            <span class="text">{{ __('Money Exhchange Request') }}</span>
+        </a>
+    </li>
+
   
 
     <li class="nav-item @if(request()->routeIs('about')) active @endif">

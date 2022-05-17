@@ -45,6 +45,8 @@ Route::prefix('user')->middleware('user')->group(function () {
     // Package Function
     Route::get('/packages', [UserController::class, 'package_enrolled'])->name('user.package.index');
 
+    Route::get('/money', [UserController::class, 'money_index'])->name('user.money.index');
+
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });
@@ -90,6 +92,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'], function() {
 
     //Money exchange Request
     Route::get('/money', [AdminController::class, 'money_request'])->name('admin.money.index');
+    Route::put('/money/status/{id}', [AdminController::class, 'money_status'])->name('admin.money.status');
 
     //message function
     Route::get('/messages', [AdminController::class, 'message_index'])->name('admin.message.index');

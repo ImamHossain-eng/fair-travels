@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2022 at 09:43 AM
+-- Generation Time: May 17, 2022 at 06:35 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -20,6 +20,93 @@ SET time_zone = "+00:00";
 --
 -- Database: `travel`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books`
+--
+
+CREATE TABLE `books` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `package_id` int(11) NOT NULL,
+  `adult` int(11) NOT NULL,
+  `children` int(11) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `street` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `zip` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`id`, `package_id`, `adult`, `children`, `name`, `email`, `mobile`, `street`, `city`, `zip`, `country`, `amount`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 5, 2, NULL, 'Babu Stenly', 'babu@gmail.com', '01915970075', 'Munshiganj', 'Gazaria', '1510', 'Bangladesh', 128, 1, '2022-05-14 17:18:35', '2022-05-14 15:57:47', '2022-05-14 17:18:35'),
+(2, 4, 1, NULL, 'Babu Stenly', 'babu@gmail.com', '01915970075', 'Munshiganj', 'Gazaria', '1510', 'Bangladesh', 19, 0, NULL, '2022-05-17 16:23:45', '2022-05-17 16:23:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exchanges`
+--
+
+CREATE TABLE `exchanges` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `short_form` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rate` double(8,2) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `exchanges`
+--
+
+INSERT INTO `exchanges` (`id`, `name`, `short_form`, `rate`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'US Dollar', 'USD', 87.57, 1, '2022-05-16 14:45:02', '2022-05-16 14:45:02'),
+(2, 'Canadian Dollar', 'CAD', 67.87, 1, '2022-05-16 14:45:51', '2022-05-16 14:45:51'),
+(3, 'Australian Dollar', 'AUD', 60.74, 1, '2022-05-16 14:46:25', '2022-05-16 14:46:25'),
+(4, 'Singapore Dollar', 'SGD', 62.81, 1, '2022-05-16 14:47:10', '2022-05-16 14:47:10'),
+(5, 'UAE DIRHAM', 'AED', 23.84, 1, '2022-05-16 14:47:51', '2022-05-16 14:47:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exchange__books`
+--
+
+CREATE TABLE `exchange__books` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `exchange_id` int(11) NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` double(8,2) NOT NULL,
+  `bdt_amount` double(8,2) NOT NULL,
+  `mobile` int(11) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `exchange__books`
+--
+
+INSERT INTO `exchange__books` (`id`, `exchange_id`, `type`, `amount`, `bdt_amount`, `mobile`, `email`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(2, 1, 'Cash', 105.00, 9194.85, 1915970075, 'babu@gmail.com', 0, NULL, '2022-05-17 16:22:33', '2022-05-17 16:22:33');
 
 -- --------------------------------------------------------
 
@@ -86,7 +173,44 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (5, '2021_11_12_154844_add_role_to_users_table', 1),
-(6, '2022_05_10_151104_create_messages_table', 2);
+(6, '2022_05_10_151104_create_messages_table', 2),
+(7, '2022_05_12_232827_add_mobile_to_users_table', 3),
+(9, '2022_05_12_234843_create_packages_table', 4),
+(11, '2022_05_13_231558_create_books_table', 5),
+(13, '2022_05_14_232055_create_exchanges_table', 6),
+(15, '2022_05_16_210316_create_exchange__books_table', 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `packages`
+--
+
+CREATE TABLE `packages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tour_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` int(11) NOT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `packages`
+--
+
+INSERT INTO `packages` (`id`, `tour_code`, `date`, `amount`, `country`, `city`, `type`, `image`, `description`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'Aliquam omnis nihil', '2022-01-20', 29, 'Necessitatibus ea co', 'Non dolorem consecte', 'Adipisicing facere q', 'no_image.png', 'Esse aute nisi ut do mm', '2022-05-13 14:57:48', '2022-05-13 14:38:04', '2022-05-13 14:57:48'),
+(2, 'Consectetur cupidita', '1997-04-20', 88, 'Quia proident cum o', 'In laborum mollit au', 'Accusamus minima vol', 'no_image.png', 'Exercitation vitae e', NULL, '2022-05-13 14:39:12', '2022-05-13 14:39:12'),
+(3, 'Esse dolorem distin', '1976-03-06', 37, 'Ad consectetur comm', 'Dolor minus voluptas', 'Tempor fugiat facil', '1652455017.webp', '<p>gdgdg</p>', NULL, '2022-05-13 15:16:58', '2022-05-13 15:16:58'),
+(4, 'Ut repudiandae dolor', '1973-10-23', 19, 'Nulla minim fugiat c', 'Nostrum dolor quia p', 'Explicabo Et beatae', '1652455048.jpg', '<p>kjfghjfdhgf</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h3><a href=\"https://itsourcecode.com/free-projects/php-project/hospital-management-system-php-project-with-source-code/\">Hospital Management System PHP Project With Source Code</a></h3>\r\n\r\n<p><a href=\"https://itsourcecode.com/free-projects/php-project/hospital-management-system-php-project-with-source-code/\"><cite>https://itsourcecode.com&nbsp;&rsaquo; free-projects &rsaquo; hospital-mana...</cite></a></p>\r\n\r\n<p>Feb 17, 2021&nbsp;&mdash;&nbsp;A&nbsp;<em>Hospital Management System Project</em>&nbsp;In PHP Documentation It ... Second, after you finished download the source code, extract the&nbsp;<em>zip file</em>.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h3><a href=\"https://phpgurukul.com/hospital-management-system-in-php/\">Hospital Management System In PHP - PHPGurukul</a></h3>\r\n\r\n<p><a href=\"https://phpgurukul.com/hospital-management-system-in-php/\"><cite>https://phpgurukul.com&nbsp;&rsaquo; Blog</cite></a></p>\r\n\r\n<p><em>Hospital Management System</em>&nbsp;is a web application for the hospital which manages doctors and patients. In this&nbsp;<em>project</em>, we use PHP and MySQL database. The&nbsp;<em>entire</em>&nbsp;...</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h3><a href=\"https://sourceforge.net/directory/?q=hospital%20management%20system%20laravel\">hospital management system laravel free download</a></h3>\r\n\r\n<p><a href=\"https://sourceforge.net/directory/?q=hospital%20management%20system%20laravel\"><cite>https://sourceforge.net&nbsp;&rsaquo; Browse</cite></a></p>\r\n\r\n<p>Showing 68 open source&nbsp;<em>projects</em>&nbsp;for &quot;<em>hospital management system laravel</em>&quot; ... Click download button above for the latest release (<em>GitHub</em>&nbsp;mirror).</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h3><a href=\"https://www.sourcecodester.com/php/14243/open-source-clinic-management-system-php-full-source-code.html\">Open Source Clinic Management System in PHP with Full ...</a></h3>\r\n\r\n<p><a href=\"https://www.sourcecodester.com/php/14243/open-source-clinic-management-system-php-full-source-code.html\"><cite>https://www.sourcecodester.com&nbsp;&rsaquo; php &rsaquo; open-source-cl...</cite></a></p>\r\n\r\n<p>May 29, 2020&nbsp;&mdash;&nbsp;The purpose of the&nbsp;<em>project</em>&nbsp;entitled &ldquo;<em>CLINIC MANAGEMENT SYSTEM</em>&rdquo; is to computerize the Front Office Management of Hospital to develop software&nbsp;...</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h3><a href=\"https://www.phptpoint.com/projects/hospital-management-system/\">Download Hospital Management System - Phptpoint</a></h3>\r\n\r\n<p><a href=\"https://www.phptpoint.com/projects/hospital-management-system/\"><cite>https://www.phptpoint.com&nbsp;&rsaquo; projects &rsaquo; hospital-manag...</cite></a></p>\r\n\r\n<p><em>Hospital Management System</em>(HMS) is a system for managing the hospital functions and events. Free Download&nbsp;<em>hospital Management System project</em>&nbsp;from&nbsp;...</p>\r\n\r\n<h3>Related searches</h3>\r\n\r\n<p><a href=\"https://www.google.com/search?q=Hospital+management+system+laravel+8+GitHub&amp;sa=X&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ1QJ6BAgiEAE\">hospital management system laravel&nbsp;<strong>8</strong>&nbsp;github</a></p>\r\n\r\n<p><a href=\"https://www.google.com/search?q=Hospital-Management-system+in-php+mysql+GitHub&amp;sa=X&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ1QJ6BAggEAE\"><strong>hospital-management-system in-php mysql</strong>&nbsp;github</a></p>\r\n\r\n<p><a href=\"https://www.google.com/search?q=Hospital+management+system+database+project+in+sql+GitHub&amp;sa=X&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ1QJ6BAgjEAE\">hospital management system&nbsp;<strong>database</strong>&nbsp;project&nbsp;<strong>in sql</strong>&nbsp;github</a></p>\r\n\r\n<p><a href=\"https://www.google.com/search?q=InfyHMS+-+Smart+Laravel+Hospital+Management+System&amp;sa=X&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ1QJ6BAgYEAE\"><strong>infyhms - smart</strong>&nbsp;laravel hospital management system</a></p>\r\n\r\n<p><a href=\"https://www.google.com/search?q=Patient+management-system+GitHub&amp;sa=X&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ1QJ6BAgeEAE\"><strong>patient management-system</strong>&nbsp;github</a></p>\r\n\r\n<p><a href=\"https://www.google.com/search?q=Hospital+management+System+using+Laravel&amp;sa=X&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ1QJ6BAghEAE\">hospital management system&nbsp;<strong>using</strong>&nbsp;laravel</a></p>\r\n\r\n<p><a href=\"https://www.google.com/search?q=Hospital+information+system+GitHub&amp;sa=X&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ1QJ6BAgdEAE\">hospital&nbsp;<strong>information</strong>&nbsp;system github</a></p>\r\n\r\n<p><a href=\"https://www.google.com/search?q=Intelligent+Hospital+System+in+java&amp;sa=X&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ1QJ6BAgfEAE\"><strong>intelligent</strong>&nbsp;hospital system&nbsp;<strong>in java</strong></a></p>\r\n\r\n<h1>Page navigation</h1>\r\n\r\n<table>\r\n	<tbody>\r\n		<tr>\r\n			<td>&nbsp;</td>\r\n			<td>1</td>\r\n			<td><a href=\"https://www.google.com/search?q=laravel+hospital+management+system+github+working+zip+file+full+project&amp;ei=P4R-YtyANNKZseMP3beGmAU&amp;start=10&amp;sa=N&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ8tMDegQIARA2\">2</a></td>\r\n			<td><a href=\"https://www.google.com/search?q=laravel+hospital+management+system+github+working+zip+file+full+project&amp;ei=P4R-YtyANNKZseMP3beGmAU&amp;start=20&amp;sa=N&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ8tMDegQIARA4\">3</a></td>\r\n			<td><a href=\"https://www.google.com/search?q=laravel+hospital+management+system+github+working+zip+file+full+project&amp;ei=P4R-YtyANNKZseMP3beGmAU&amp;start=30&amp;sa=N&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ8tMDegQIARA6\">4</a></td>\r\n			<td><a href=\"https://www.google.com/search?q=laravel+hospital+management+system+github+working+zip+file+full+project&amp;ei=P4R-YtyANNKZseMP3beGmAU&amp;start=40&amp;sa=N&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ8tMDegQIARA8\">5</a></td>\r\n			<td><a href=\"https://www.google.com/search?q=laravel+hospital+management+system+github+working+zip+file+full+project&amp;ei=P4R-YtyANNKZseMP3beGmAU&amp;start=10&amp;sa=N&amp;ved=2ahUKEwicnN3r79z3AhXSTGwGHd2bAVMQ8NMDegQIARA-\">Next</a></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<h1>Footer links</h1>', NULL, '2022-05-13 15:17:28', '2022-05-13 16:28:52'),
+(5, 'Eum et inventore aut', '2004-11-30', 64, 'Lorem ratione sit a', 'Sit laudantium com', 'Cum sit facilis dic', 'no_image.png', '<p>hgfghf</p>', NULL, '2022-05-13 15:32:40', '2022-05-13 15:32:40');
 
 -- --------------------------------------------------------
 
@@ -133,21 +257,41 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
-(3, 'Admin', 'admin@gmail.com', NULL, '$2y$10$8MA.r2Ire7KtehpoEtklO.gBBm0IrnYAZ3NB22RKDfKyj1UluZ9eq', NULL, '2022-05-10 17:21:09', '2022-05-10 17:37:20', 'admin'),
-(5, 'Hanna Horton', 'jubizipo@mailinator.com', NULL, '$2y$10$U94vHzNTr8KrNWfF6YbUTOsPHb6m2uOuUnET3XrTDlvM.YVidHSEi', NULL, '2022-05-10 17:37:38', '2022-05-10 17:37:38', 'admin'),
-(6, 'User', 'user@gmail.com', NULL, '$2y$10$tn81gDf642ka85kPoZwTre8erEuDZBGNZ.Fa9vzr5N.VN2J5/iZo.', NULL, '2022-05-10 17:44:19', '2022-05-10 17:44:19', 'user');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`, `mobile`) VALUES
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$8MA.r2Ire7KtehpoEtklO.gBBm0IrnYAZ3NB22RKDfKyj1UluZ9eq', NULL, '2022-05-10 17:21:09', '2022-05-10 17:37:20', 'admin', '01915970075'),
+(5, 'Hanna Horton', 'jubizipo@mailinator.com', NULL, '$2y$10$U94vHzNTr8KrNWfF6YbUTOsPHb6m2uOuUnET3XrTDlvM.YVidHSEi', NULL, '2022-05-10 17:37:38', '2022-05-10 17:37:38', 'admin', ''),
+(6, 'User', 'user@gmail.com', NULL, '$2y$10$tn81gDf642ka85kPoZwTre8erEuDZBGNZ.Fa9vzr5N.VN2J5/iZo.', NULL, '2022-05-10 17:44:19', '2022-05-10 17:44:19', 'user', ''),
+(7, 'Babu Stenly', 'babu@gmail.com', NULL, '$2y$10$ZsTQNqByNRIJCJXwmbpdmOq.PvB.PyDud8R0PP/ErvcLwVAXXE3Xu', NULL, '2022-05-12 17:34:09', '2022-05-12 17:34:09', 'user', '01915970075');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `exchanges`
+--
+ALTER TABLE `exchanges`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `exchange__books`
+--
+ALTER TABLE `exchange__books`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -167,6 +311,13 @@ ALTER TABLE `messages`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `packages`
+--
+ALTER TABLE `packages`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `packages_tour_code_unique` (`tour_code`);
 
 --
 -- Indexes for table `password_resets`
@@ -194,6 +345,24 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `books`
+--
+ALTER TABLE `books`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `exchanges`
+--
+ALTER TABLE `exchanges`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `exchange__books`
+--
+ALTER TABLE `exchange__books`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -209,7 +378,13 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `packages`
+--
+ALTER TABLE `packages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -221,7 +396,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

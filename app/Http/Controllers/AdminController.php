@@ -259,4 +259,16 @@ class AdminController extends Controller
         $requests = Exchange_Book::latest()->paginate(10);
         return view('admin.exchange.request', compact('requests'));
     }
+    public function money_status($id){
+        $request = Exchange_Book::find($id);
+        $st = $request->status;
+
+        if($st == false){
+            $request->status = true;
+        }else{
+            $request->status = false;    
+        }
+        $request->save(); 
+        return redirect()->route('admin.money.index')->with('success', 'Successfully Updated.'); 
+    }
 }
