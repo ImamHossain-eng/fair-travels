@@ -9,13 +9,15 @@ use App\Models\Package;
 use App\Models\Book;
 use App\Models\Exchange;
 use App\Models\Exchange_Book;
+use App\Models\Slider;
 
 class PagesController extends Controller
 {
     public function homepage(){
         $packages = Package::latest()->take(3)->get();
         $exchanges = Exchange::where('status', true)->get();
-        return view('pages.HomePage', compact('packages', 'exchanges'));
+        $sliders = Slider::latest()->get();
+        return view('pages.HomePage', compact('packages', 'exchanges', 'sliders'));
     }
     public function pageByName($name){
         return view('pages.static.'.$name);

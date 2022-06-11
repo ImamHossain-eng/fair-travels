@@ -83,6 +83,14 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'], function() {
     Route::put('/enrolled/package/{id}', [AdminController::class, 'enrolled_update'])->name('admin.enrolled.update');
     Route::delete('/enrolled/package/{id}', [AdminController::class, 'enrolled_destroy'])->name('admin.enrolled.destroy');
 
+    //Slider CRUD
+    Route::get('/sliders', [AdminController::class, 'slider_index'])->name('admin.slider.index');
+    Route::view('/sliders/create', 'admin.slider.create')->name('admin.slider.create');
+    Route::post('/sliders', [AdminController::class, 'slider_store'])->name('admin.slider.store');
+    Route::delete('/sliders/{id}', [AdminController::class, 'slider_destroy'])->name('admin.slider.destroy');
+    Route::get('/sliders/{id}/edit', [AdminController::class, 'slider_edit'])->name('admin.slider.edit');
+    Route::put('/sliders/{id}', [AdminController::class, 'slider_update'])->name('admin.slider.update');
+
     //Foreign Exchange rate
     Route::get('/exchange', [AdminController::class, 'exchange_index'])->name('admin.exchange.index');
     Route::view('/exchange/create', 'admin.exchange.create')->name('admin.exchange.create');

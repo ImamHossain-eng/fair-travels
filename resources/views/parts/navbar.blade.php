@@ -18,20 +18,29 @@
                   SERVICES
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
+                  {{-- <li>
                     <a class="dropdown-item" href="#">FLIGHT RESERVATION</a>
                   </li>
                   <li>
                     <a class="dropdown-item" href="#">VISA PROCESSING</a>
-                  </li>
+                  </li> --}}
                   <li>
                     <a class="dropdown-item" href="#">HOTEL BOOKING</a>
                   </li>
-                  <li>
+                  {{-- <li>
                     <a class="dropdown-item" href="#">PRODUCT DELIVERY</a>
-                  </li>
+                  </li> --}}
                   <li>
                     <a class="dropdown-item" href="/foreign-exchange">FOREIGN EXCHANGE</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/#">CRUISE RESERVATION</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/#">TRANSPORTATION</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/#">INSURANCES</a>
                   </li>
                 </ul>
               </li>

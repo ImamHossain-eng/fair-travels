@@ -10,8 +10,9 @@ use App\Models\Package;
 use App\Models\Book;
 use App\Models\Exchange;
 use App\Models\Exchange_Book;
+use App\Models\Slider;
 
-use Image;
+use Image, File;
 
 class AdminController extends Controller
 {
@@ -270,5 +271,65 @@ class AdminController extends Controller
         }
         $request->save(); 
         return redirect()->route('admin.money.index')->with('success', 'Successfully Updated.'); 
+    }
+    public function slider_index(){
+        $sliders = Slider::latest()->get();
+        return view('admin.slider.index', compact('sliders'));
+    }
+    public function slider_store(Request $request){
+        $this->validate($request, [
+            'title' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $file_name = time().'.'.$extension;
+            Image::make($file)->resize(1200, 800)->save(public_path('/images/sliders/'.$file_name));
+        }
+        else{
+            return back()->withInputs()->with('error', 'Please select an image');
+        }
+
+        $slider = new Slider;
+        $slider->user_id = auth()->user()->id;
+        $slider->title = $request->input('title');
+        $slider->subtitle = $request->input('subtitle');
+        $slider->image = $file_name;
+        $slider->save();
+        return redirect()->route('admin.slider.index')->with('success', 'Successfully uploaded.');
+    }
+    public function slider_destroy($id){
+        $slider = Slider::find($id);
+        File::delete(public_path('images/sliders/'.$slider->image));
+        $slider->delete();
+        return redirect()->route('admin.slider.index')->with('error', 'Successfully removed.');
+    }
+    public function slider_edit($id){
+        $slider = Slider::find($id);
+        return view('admin.slider.edit', compact('slider'));
+    }
+    public function slider_update(Request $request, $id){
+        $this->validate($request, ['title' => 'required|string']);
+
+        $slider = Slider::find($id);
+        $oldImage = $slider->image;
+
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $file_name = time().'.'.$extension;
+            Image::make($file)->resize(1200, 800)->save(public_path('/images/sliders/'.$file_name));
+            File::delete(public_path('/images/sliders/'.$oldImage));
+        }else{
+            $file_name = $oldImage;
+        }
+
+        $slider->title = $request->input('title');
+        $slider->subtitle = $request->input('subtitle');
+        $slider->image = $file_name;
+        $slider->save();
+        return redirect()->route('admin.slider.index')->with('warning', 'Successfully Updated.');
     }
 }

@@ -50,6 +50,15 @@
         </a>
     </li>
 
+    <li class="nav-item @if(request()->routeIs('admin.slider*')) active @endif">
+        <a href="{{ route('admin.slider.index') }}">
+            <span class="icon">
+                <i class="fa fa-picture-o"></i>
+            </span>
+            <span class="text">Sliders</span>
+        </a>
+    </li>
+
     <li class="nav-item @if(request()->routeIs('admin.enrolled*')) active @endif">
         <a href="{{ route('admin.enrolled.package') }}">
             <span class="icon">
