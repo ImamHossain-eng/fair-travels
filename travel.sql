@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2022 at 06:35 PM
+-- Generation Time: Jul 21, 2022 at 07:20 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -43,16 +43,18 @@ CREATE TABLE `books` (
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `payment` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `books`
 --
 
-INSERT INTO `books` (`id`, `package_id`, `adult`, `children`, `name`, `email`, `mobile`, `street`, `city`, `zip`, `country`, `amount`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 5, 2, NULL, 'Babu Stenly', 'babu@gmail.com', '01915970075', 'Munshiganj', 'Gazaria', '1510', 'Bangladesh', 128, 1, '2022-05-14 17:18:35', '2022-05-14 15:57:47', '2022-05-14 17:18:35'),
-(2, 4, 1, NULL, 'Babu Stenly', 'babu@gmail.com', '01915970075', 'Munshiganj', 'Gazaria', '1510', 'Bangladesh', 19, 0, NULL, '2022-05-17 16:23:45', '2022-05-17 16:23:45');
+INSERT INTO `books` (`id`, `package_id`, `adult`, `children`, `name`, `email`, `mobile`, `street`, `city`, `zip`, `country`, `amount`, `status`, `deleted_at`, `created_at`, `updated_at`, `payment`) VALUES
+(3, 4, 2, NULL, 'User', 'user@gmail.com', '01727084278', 'Munshiganj', 'Gazaria', '1510', 'Bangladesh', 38, 0, NULL, '2022-07-21 14:08:28', '2022-07-21 14:08:28', 0),
+(4, 3, 3, NULL, 'Admin', 'admin@gmail.com', '01915970075', 'Munshiganj', 'Gazaria', '1510', 'Bangladesh', 111, 0, NULL, '2022-07-21 15:10:55', '2022-07-21 15:10:55', 0),
+(5, 4, 3, NULL, 'User', 'user@gmail.com', '017', 'Munshiganj', 'Gazaria', '1510', 'Bangladesh', 57, 1, NULL, '2022-07-21 15:50:07', '2022-07-21 16:06:01', 1);
 
 -- --------------------------------------------------------
 
@@ -106,7 +108,7 @@ CREATE TABLE `exchange__books` (
 --
 
 INSERT INTO `exchange__books` (`id`, `exchange_id`, `type`, `amount`, `bdt_amount`, `mobile`, `email`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(2, 1, 'Cash', 105.00, 9194.85, 1915970075, 'babu@gmail.com', 0, NULL, '2022-05-17 16:22:33', '2022-05-17 16:22:33');
+(2, 1, 'Cash', 105.00, 9194.85, 1915970075, 'babu@gmail.com', 0, NULL, '2022-05-17 16:22:33', '2022-06-11 15:34:45');
 
 -- --------------------------------------------------------
 
@@ -178,7 +180,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2022_05_12_234843_create_packages_table', 4),
 (11, '2022_05_13_231558_create_books_table', 5),
 (13, '2022_05_14_232055_create_exchanges_table', 6),
-(15, '2022_05_16_210316_create_exchange__books_table', 7);
+(15, '2022_05_16_210316_create_exchange__books_table', 7),
+(16, '2022_06_11_212737_create_sliders_table', 8),
+(17, '2022_07_21_211934_create_payments_table', 9),
+(18, '2022_07_21_213500_add_payment_to_books_table', 10);
 
 -- --------------------------------------------------------
 
@@ -227,6 +232,32 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` double NOT NULL,
+  `method` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `user_id`, `mobile`, `transaction_id`, `amount`, `method`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 6, '01880983311', 'yhtfyhf45456465', 57, 'Bkash', 0, NULL, '2022-07-21 15:58:25', '2022-07-21 15:58:25');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `personal_access_tokens`
 --
 
@@ -241,6 +272,34 @@ CREATE TABLE `personal_access_tokens` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sliders`
+--
+
+CREATE TABLE `sliders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subtitle` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sliders`
+--
+
+INSERT INTO `sliders` (`id`, `user_id`, `title`, `subtitle`, `image`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Title One', NULL, '1654963588.jpg', '2022-06-11 16:16:27', '2022-06-11 16:06:28', '2022-06-11 16:16:27'),
+(2, 1, 'Eos do necessitatibu', 'Ea animi tenetur de', '1654964237.jpg', NULL, '2022-06-11 16:17:18', '2022-06-11 16:17:18'),
+(3, 1, 'Est quam molestias e', 'Dolores facilis omni', '1654964248.jpg', NULL, '2022-06-11 16:17:28', '2022-06-11 16:17:28'),
+(4, 1, 'Quae aute quo consec', 'Distinctio Qui quid dd', '1654964258.jpg', NULL, '2022-06-11 16:17:38', '2022-06-11 16:54:55'),
+(5, 1, 'Aut proident impedi', 'Ut sunt aliquam iur', '1654967000.jpg', '2022-06-11 17:03:32', '2022-06-11 17:03:20', '2022-06-11 17:03:32');
 
 -- --------------------------------------------------------
 
@@ -268,8 +327,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`, `mobile`) VALUES
 (1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$8MA.r2Ire7KtehpoEtklO.gBBm0IrnYAZ3NB22RKDfKyj1UluZ9eq', NULL, '2022-05-10 17:21:09', '2022-05-10 17:37:20', 'admin', '01915970075'),
 (5, 'Hanna Horton', 'jubizipo@mailinator.com', NULL, '$2y$10$U94vHzNTr8KrNWfF6YbUTOsPHb6m2uOuUnET3XrTDlvM.YVidHSEi', NULL, '2022-05-10 17:37:38', '2022-05-10 17:37:38', 'admin', ''),
-(6, 'User', 'user@gmail.com', NULL, '$2y$10$tn81gDf642ka85kPoZwTre8erEuDZBGNZ.Fa9vzr5N.VN2J5/iZo.', NULL, '2022-05-10 17:44:19', '2022-05-10 17:44:19', 'user', ''),
-(7, 'Babu Stenly', 'babu@gmail.com', NULL, '$2y$10$ZsTQNqByNRIJCJXwmbpdmOq.PvB.PyDud8R0PP/ErvcLwVAXXE3Xu', NULL, '2022-05-12 17:34:09', '2022-05-12 17:34:09', 'user', '01915970075');
+(6, 'User', 'user@gmail.com', NULL, '$2y$10$tn81gDf642ka85kPoZwTre8erEuDZBGNZ.Fa9vzr5N.VN2J5/iZo.', NULL, '2022-05-10 17:44:19', '2022-05-10 17:44:19', 'user', '');
 
 --
 -- Indexes for dumped tables
@@ -326,12 +384,24 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Indexes for table `sliders`
+--
+ALTER TABLE `sliders`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -348,7 +418,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `exchanges`
@@ -378,7 +448,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `packages`
@@ -387,10 +457,22 @@ ALTER TABLE `packages`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sliders`
+--
+ALTER TABLE `sliders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -19,8 +19,6 @@
         </div>
       </div>
       @endforeach
-
-      
      
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">

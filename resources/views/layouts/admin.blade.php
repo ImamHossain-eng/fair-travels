@@ -104,7 +104,7 @@
                         <p class="text-sm">
                             Designed and Developed by
                             <a>
-                                CodeHUB IT
+                                Farhan and Pinky
                             </a>
                         </p>
                     </div>

@@ -2,6 +2,7 @@
 @section('content')
 <!--Slider start-->
 @include('parts.slider')
+
 <div style="background-color:#212121; color: #EFEFEF; padding: .5em;">
     <div class="container">
         <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();" scrollamount="5" vspace="2px">
@@ -13,6 +14,7 @@
         </marquee>
     </div>
 </div>
+
 <!--Services-->
 @include('parts.services')
 

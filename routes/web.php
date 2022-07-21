@@ -18,6 +18,9 @@ use App\Http\Controllers\UserController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+
+
 Route::get('/', [PagesController::class, 'homepage'])->name('homepage');
 
 Route::post('/contact', [PagesController::class, 'contact'])->name('contact');
@@ -31,12 +34,16 @@ Route::get('/packages/{tour_code}', [PagesController::class, 'package_show'])->n
 Route::get('/package/{tour_code}/book', [PagesController::class, 'package_book'])->name('package.book');
 Route::post('/package/book', [PagesController::class, 'package_book_store'])->name('package.book.store');
 
+//payment for book
+Route::get('/book/{id}/payment', [PagesController::class, 'book_payment'])->name('book.payment.form')->middleware('auth');
+Route::post('/book/{id}/payment', [PagesController::class, 'book_payment_store'])->name('book.payment.store')->middleware('auth');
+
 //Foreign Exchange for User or Visitor
 Route::get('/foreign-exchange', [PagesController::class, 'foreign_exchange'])->name('foreign.exchange');
 Route::post('/foreign-exchange', [PagesController::class, 'foreign_exchange_store'])->name('foreign.exchange.store');
 
 Auth::routes();
-
+ 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('user')->middleware('user')->group(function () {
@@ -90,6 +97,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'], function() {
     Route::delete('/sliders/{id}', [AdminController::class, 'slider_destroy'])->name('admin.slider.destroy');
     Route::get('/sliders/{id}/edit', [AdminController::class, 'slider_edit'])->name('admin.slider.edit');
     Route::put('/sliders/{id}', [AdminController::class, 'slider_update'])->name('admin.slider.update');
+
+    //payment Functions
+    Route::get('/payments', [AdminController::class, 'payment_index'])->name('admin.payment.index');
 
     //Foreign Exchange rate
     Route::get('/exchange', [AdminController::class, 'exchange_index'])->name('admin.exchange.index');

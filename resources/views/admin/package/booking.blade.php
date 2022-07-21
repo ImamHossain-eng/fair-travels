@@ -18,6 +18,7 @@
                     <th>People</th>
                     <th>Requested at</th>
                     <th>Status</th>
+                    <th>Payment</th>
                     <th>Option</th>
                 </tr>
             </thead>
@@ -39,25 +40,34 @@
                             @endif
                         </td>
                         <td>
-                
-                            <form action="{{route('admin.enrolled.update', [$package->id])}}" method="POST" style="display:inline;">
-                                @csrf 
-                                @method('PUT')
-                                <button type="submit" title="Confirm this package" class="btn btn-success">
-                                    <i class="fa fa-check"></i>
-                                </button>
-                            </form>  
+                            @if($package->payment == false)
+                                Pending
+                            @else 
+                                Confirmed
+                            @endif
+                        </td>
+                        <td>
+                            @if($package->payment == true && $package->status == false)
+                                <form action="{{route('admin.enrolled.update', [$package->id])}}" method="POST" style="display:inline;">
+                                    @csrf 
+                                    @method('PUT')
+                                    <button type="submit" title="Confirm this package" class="btn btn-success">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                </form>  
+                            @endif
 
                             
 
-                            
-                            <form action="{{route('admin.enrolled.destroy', $package->id)}}" method="POST" style="display:inline;">
-                                @csrf 
-                                @method('DELETE')
-                                <button type="submit" title="Delete this package enrolled" class="btn btn-danger">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </form>
+                            @if($package->payment == false)
+                                <form action="{{route('admin.enrolled.destroy', $package->id)}}" method="POST" style="display:inline;">
+                                    @csrf 
+                                    @method('DELETE')
+                                    <button type="submit" title="Delete this package enrolled" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                 @empty 

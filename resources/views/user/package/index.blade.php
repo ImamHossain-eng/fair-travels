@@ -15,7 +15,8 @@
                     <th>Amount</th>
                     <th>Date</th>
                     <th>Status</th>
-                    <th>Confirmed At</th>
+                    <th>Payment</th>
+                    <th>Enrolled At</th>
                     <th>Option</th>
                 </tr>
             </thead>
@@ -28,6 +29,7 @@
                         <td>{{Carbon\Carbon::parse($pack->package->date)->format('F d, Y')}}</td>
                         {{-- <td>{{$pack->package->city}} <br> {{$pack->package->country}}</td> --}}
                         <td>@if($pack->status == false) Pending @else Confirmed @endif</td>
+                        <td>@if($pack->payment == false) Pending @else Paid @endif</td>
                         <td>{{Carbon\Carbon::parse($pack->created_at)->format('F d, Y - g:ia')}}</td>
                         <td>
                             @if($pack->status == false)

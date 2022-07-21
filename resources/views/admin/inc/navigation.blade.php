@@ -68,6 +68,15 @@
         </a>
     </li>
 
+    <li class="nav-item @if(request()->routeIs('admin.payment*')) active @endif">
+        <a href="{{ route('admin.payment.index') }}">
+            <span class="icon">
+                <i class="fa fa-credit-card"></i>
+            </span>
+            <span class="text">Payments</span>
+        </a>
+    </li>
+
     <li class="nav-item @if(request()->routeIs('admin.exchange*')) active @endif">
         <a href="{{ route('admin.exchange.index') }}">
             <span class="icon">
@@ -98,7 +107,7 @@
         </a>
     </li>
 
-    <li class="nav-item nav-item-has-children">
+    {{-- <li class="nav-item nav-item-has-children">
         <a class="collapsed" href="#0" class="" data-bs-toggle="collapse" data-bs-target="#ddmenu_1"
            aria-controls="ddmenu_1" aria-expanded="true" aria-label="Toggle navigation">
             <span class="icon">
@@ -115,5 +124,5 @@
                 <a href="#">Child menu</a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 </ul>

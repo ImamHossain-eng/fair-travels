@@ -11,6 +11,7 @@ use App\Models\Book;
 use App\Models\Exchange;
 use App\Models\Exchange_Book;
 use App\Models\Slider;
+use App\Models\Payment;
 
 use Image, File;
 
@@ -200,7 +201,7 @@ class AdminController extends Controller
     }
     public function enrolled_package(){
         $packages = Book::latest()->paginate(10);
-        return view('admin.package.booking', compact('packages'));
+        return view('admin.package.booking', compact('packages')); 
     }
     public function enrolled_update(Request $request, $id){
         $pack = Book::find($id);
@@ -331,5 +332,9 @@ class AdminController extends Controller
         $slider->image = $file_name;
         $slider->save();
         return redirect()->route('admin.slider.index')->with('warning', 'Successfully Updated.');
+    }
+    public function payment_index(){
+        $payments = Payment::latest()->paginate(10);
+        return view('admin.payment.index', compact('payments'));
     }
 }

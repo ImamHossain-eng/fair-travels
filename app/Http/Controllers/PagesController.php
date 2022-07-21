@@ -10,9 +10,11 @@ use App\Models\Book;
 use App\Models\Exchange;
 use App\Models\Exchange_Book;
 use App\Models\Slider;
+use App\Models\Payment;
 
 class PagesController extends Controller
 {
+    
     public function homepage(){
         $packages = Package::latest()->take(3)->get();
         $exchanges = Exchange::where('status', true)->get();
@@ -30,7 +32,7 @@ class PagesController extends Controller
         $this->validate($request, [
             'name' => ['required', 'string', 'max:191'],
             'email' => ['required', 'email', 'max:191'],
-            'mobile' => ['required', 'max:11'],
+            'mobile' => ['required', 'max:11', 'min:11'],
             'body' => 'required'
         ]);
 
@@ -94,8 +96,39 @@ class PagesController extends Controller
 
         $book->save();
 
-        return redirect()->route('package.list')->with('success', 'Successfully Ordered the Package.');
+        return redirect()->route('book.payment.form', $book->id);
 
+    }
+    public function book_payment($id){
+        $book = Book::find($id);
+        return view('pages.book_payment', compact('book'));
+    }
+    public function book_payment_store(Request $request, $id){
+        $this->validate($request, [
+            'mobile' => 'required|min:11',
+            'transaction_id' => 'required|string',
+            'amount' => 'required',
+        ]);
+        if($request->input('method') != null){
+            //Change book payment status
+            $book = Book::find($id);
+            if($book->payment == false){
+                $book->payment = true;
+                $book->save();
+            }
+            //Save new payment details to the DB
+            $payment = new Payment;
+            $payment->user_id = auth()->user()->id;
+            $payment->mobile = $request->input('mobile');
+            $payment->transaction_id = $request->input('transaction_id');
+            $payment->amount = $request->input('amount');
+            $payment->method = $request->input('method');
+            $payment->save();
+            return redirect()->route('user.package.index')->with('success', 'Successfully Paid.');
+
+        }else{
+            return back()->withInput()->with('error', 'Please select a payment method');
+        }
     }
     public function foreign_exchange(){
         $exchanges = Exchange::all();
