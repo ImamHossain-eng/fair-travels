@@ -6,7 +6,7 @@
             <div class="card-header bg-warning">
                 <div class="card-title">
                     <h3 class="text-center text-dark">
-                        Payment for the Package of {{$book->package->tour_code}} [Tour Code]
+                        Payment for Foreign Exchange
                     </h3>
                 </div>
             </div>
@@ -16,9 +16,11 @@
                         <li>01727084278 : Bkash | Upay | Cellfin </li>
                         <li>01727084279 : Rocket | Nagad</li>
                     </ul>
+                    <br>
+                    Send BDT {{$ex->bdt_amount}} /= to get {{$ex->amount}} {{$ex->exchange->short_form}}
                 </div>
         
-                <form action="{{route('book.payment.store', $book->id)}}" method="POST">
+                <form action="{{route('foreign.exchange.payment')}}" method="POST">
                     @csrf 
                     <div class="form-group mb-4">
                         <input type="number" name="mobile" class="form-control" placeholder="Enter sender mobile number" value="{{old('mobile')}}">
@@ -30,9 +32,9 @@
                         <input type="text" name="transaction_id" class="form-control" placeholder="Enter Transaction ID" value="{{old('transaction_id')}}">
                     </div>
                     <div class="form-group mb-4">
-                        <input type="hidden" step="any" name="amount" class="form-control" placeholder="Enter Amount" value="{{$book->amount}}">
+                        <input type="hidden" step="any" name="amount" class="form-control" placeholder="Enter Amount" value="{{$ex->bdt_amount}}">
                         
-                        <input type="number" step="any" name="amountView" class="form-control" placeholder="Enter Amount" value="{{$book->amount}}" disabled>
+                        <input type="number" step="any" name="amountView" class="form-control" placeholder="Enter Amount" value="{{$ex->bdt_amount}}" disabled>
                     </div>
                     <div class="form-group mb-4">
                         <label for="method">Select Payment Method</label>

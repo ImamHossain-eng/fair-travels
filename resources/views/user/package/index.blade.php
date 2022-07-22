@@ -32,9 +32,9 @@
                         <td>@if($pack->payment == false) Pending @else Paid @endif</td>
                         <td>{{Carbon\Carbon::parse($pack->created_at)->format('F d, Y - g:ia')}}</td>
                         <td>
-                            @if($pack->status == false)
-                                <a href="#" class="btn btn-success" title="Edit this Booking">
-                                    <i class="fa fa-check"></i>
+                            @if($pack->payment == false)
+                                <a href="/book/{{$pack->id}}/payment" class="btn btn-success" title="Pay for this Booking">
+                                    <i class="fa fa-credit-card"></i>
                                 </a>
                             @endif
                         </td>

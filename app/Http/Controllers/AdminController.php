@@ -337,4 +337,19 @@ class AdminController extends Controller
         $payments = Payment::latest()->paginate(10);
         return view('admin.payment.index', compact('payments'));
     }
+    public function payment_confirm($id){
+        $payment = Payment::find($id);
+        if($payment->status == false){
+            $payment->status = true;
+            $payment->save();
+
+            //Make the booking confirm
+            $book = Book::where('email', $payment->email)->where('payment', true)->where('status', false)->first();
+            if($book && $book->amount == $payment->amount){
+                $book->status = true;
+                $book->save();
+            }
+        }
+        return redirect()->route('admin.payment.index')->with('success', 'Successfully confirm this payment and confirm the package boking as well.');
+    }
 }

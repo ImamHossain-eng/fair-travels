@@ -41,6 +41,14 @@
     </li>
 
   
+    <li class="nav-item @if(request()->routeIs('user.payment*')) active @endif">
+        <a href="{{ route('user.payment.index') }}">
+            <span class="icon">
+                <i class="fa fa-credit-card"></i>
+            </span>
+            <span class="text">{{ __('Payment') }}</span>
+        </a>
+    </li>
 
     <li class="nav-item @if(request()->routeIs('about')) active @endif">
         <a href="{{ route('about') }}">

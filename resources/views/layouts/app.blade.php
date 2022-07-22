@@ -103,12 +103,8 @@
                     <div class="copyright text-md-start">
                         <p class="text-sm">
                             Designed and Developed by
-                            <a
-                                    href="https://plainadmin.com"
-                                    rel="nofollow"
-                                    target="_blank"
-                            >
-                                PlainAdmin
+                            <a>
+                                Farhan and Pinky
                             </a>
                         </p>
                     </div>

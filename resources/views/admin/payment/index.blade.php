@@ -13,7 +13,7 @@
             <thead>
                 <tr>
                     <th>Serial</th>
-                    <th>User</th>
+                    <th>Email</th>
                     <th>Sender Number</th>
                     <th>Amount</th>
                     <th>Method</th>
@@ -25,7 +25,7 @@
                 @forelse($payments as $key => $payment)
                     <tr>
                         <td>{{$key+1}}</td>
-                        <td>{{$payment->user->name}}</td>
+                        <td>{{$payment->email}}</td>
                         <td>{{$payment->mobile}}</td>
                         <td>{{number_format($payment->amount, 2)}} /=</td>
                         <td>{{$payment->method}}</td>
@@ -35,7 +35,17 @@
                             @else Confirmed
                             @endif
                         </td>
-                        <td>Option</td>
+                        <td>
+                            @if($payment->status == false)
+                                <form action="{{route('admin.payment.confirm', $payment->id)}}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button title="Confirm this Payment" class="btn btn-success">
+                                        <i class="fa fa-credit-card"></i>
+                                    </button>
+                                </form>
+                            @endif
+                        </td>
                     </tr>
                 @empty 
                     <tr class="table-warning text-center">

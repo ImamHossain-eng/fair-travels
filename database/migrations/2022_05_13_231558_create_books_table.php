@@ -27,6 +27,7 @@ class CreateBooksTable extends Migration
             $table->string('country');
             $table->integer('amount');
             $table->boolean('status')->default(false);
+            $table->boolean('payment')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

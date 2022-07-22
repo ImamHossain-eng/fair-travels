@@ -35,12 +35,14 @@ Route::get('/package/{tour_code}/book', [PagesController::class, 'package_book']
 Route::post('/package/book', [PagesController::class, 'package_book_store'])->name('package.book.store');
 
 //payment for book
-Route::get('/book/{id}/payment', [PagesController::class, 'book_payment'])->name('book.payment.form')->middleware('auth');
-Route::post('/book/{id}/payment', [PagesController::class, 'book_payment_store'])->name('book.payment.store')->middleware('auth');
+Route::get('/book/{id}/payment', [PagesController::class, 'book_payment'])->name('book.payment.form');
+Route::post('/book/{id}/payment', [PagesController::class, 'book_payment_store'])->name('book.payment.store');
 
 //Foreign Exchange for User or Visitor
 Route::get('/foreign-exchange', [PagesController::class, 'foreign_exchange'])->name('foreign.exchange');
 Route::post('/foreign-exchange', [PagesController::class, 'foreign_exchange_store'])->name('foreign.exchange.store');
+Route::put('/foreign-exchange/{id}', [PagesController::class, 'foreign_exchange_address'])->name('foreign.exchange.address');
+Route::post('/foreigh-exchange/payment', [PagesController::class, 'foreign_exchange_payment'])->name('foreign.exchange.payment');
 
 Auth::routes();
  
@@ -56,6 +58,9 @@ Route::prefix('user')->middleware('user')->group(function () {
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+
+    //Payment
+    Route::get('/payments', [UserController::class, 'payment_index'])->name('user.payment.index');
 });
 
 Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
@@ -100,6 +105,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'], function() {
 
     //payment Functions
     Route::get('/payments', [AdminController::class, 'payment_index'])->name('admin.payment.index');
+    Route::patch('/payments/{id}', [AdminController::class, 'payment_confirm'])->name('admin.payment.confirm');
 
     //Foreign Exchange rate
     Route::get('/exchange', [AdminController::class, 'exchange_index'])->name('admin.exchange.index');

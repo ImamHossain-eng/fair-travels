@@ -21,7 +21,12 @@ class CreateExchangeBooksTable extends Migration
             $table->double('bdt_amount', 8, 2);
             $table->integer('mobile');
             $table->string('email');
+            $table->string('street')->nullable();
+            $table->string('city')->nullable();
+            $table->string('zip')->nullable();
+            $table->string('country')->nullable();
             $table->boolean('status')->default(false);
+            $table->boolean('payment')->default(false);
             $table->softDeletes();            
             $table->timestamps();
         });

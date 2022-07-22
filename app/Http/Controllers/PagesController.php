@@ -105,6 +105,7 @@ class PagesController extends Controller
     }
     public function book_payment_store(Request $request, $id){
         $this->validate($request, [
+            'email' => 'required|email',
             'mobile' => 'required|min:11',
             'transaction_id' => 'required|string',
             'amount' => 'required',
@@ -118,13 +119,13 @@ class PagesController extends Controller
             }
             //Save new payment details to the DB
             $payment = new Payment;
-            $payment->user_id = auth()->user()->id;
+            $payment->email = $request->input('email');
             $payment->mobile = $request->input('mobile');
             $payment->transaction_id = $request->input('transaction_id');
             $payment->amount = $request->input('amount');
             $payment->method = $request->input('method');
             $payment->save();
-            return redirect()->route('user.package.index')->with('success', 'Successfully Paid.');
+            return redirect()->route('homepage')->with('success', 'Successfully Paid, Login with that email for details information.');
 
         }else{
             return back()->withInput()->with('error', 'Please select a payment method');
@@ -161,9 +162,51 @@ class PagesController extends Controller
             $ex->mobile = $request->input('mobile');
             $ex->email = $request->input('email');
             $ex->save();
-            return redirect()->route('homepage')->with('success', 'Successfully Requested for Money Exchange.');
+            // redirect depending on type selection
+            if($ex->type != 'Cash'){
+                return view('pages.exchange.address', compact('ex'));
+            }else{
+                return view('pages.exchange.payment', compact('ex'));
+            }
+            // return redirect()->route('homepage')->with('success', 'Successfully Requested for Money Exchange.');
         }else{
             return back()->withInput()->with('error', 'Please Choose Exchange Type and Currency and Try Again.');
         }
+    }
+    public function foreign_exchange_address(Request $request, $id){
+        $this->validate($request, [
+            'street' => 'required',
+            'city' => 'required',
+            'zip' => 'required',
+            'country' => 'required',
+        ]);
+        $exB = Exchange_Book::find($id);
+        $exB->street = $request->input('street');
+        $exB->city = $request->input('city');
+        $exB->zip = $request->input('zip');
+        $exB->country = $request->input('country');
+        $exB->save();
+        return redirect()->route('homepage')->with('success', 'Successfully sent the request.');
+    }
+    public function foreign_exchange_payment(Request $request){
+        $this->validate($request, [
+            'email' => 'required|email',
+            'mobile' => 'required|min:11',
+            'transaction_id' => 'required|string',
+            'amount' => 'required',
+        ]);
+        if($request->input('method') != null){
+            $payment = new Payment;
+            $payment->email = $request->input('email');
+            $payment->mobile = $request->input('mobile');
+            $payment->transaction_id = $request->input('transaction_id');
+            $payment->amount = $request->input('amount');
+            $payment->method = $request->input('method');
+            $payment->save();
+            return redirect()->route('homepage')->with('success', 'Successfully Paid.');
+        }else{
+            return 'Error during payment';
+        }
+        
     }
 }
