@@ -64,6 +64,10 @@ Route::prefix('user')->middleware('user')->group(function () {
 
     //Payment
     Route::get('/payments', [UserController::class, 'payment_index'])->name('user.payment.index');
+
+    //Hotel Booking
+    Route::get('/hotels', [UserController::class, 'hotel_index'])->name('user.hotel.index');
+    Route::get('/hotels/{id}', [UserController::class, 'hotel_show'])->name('user.hotel.show');
 });
 
 Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update')->middleware('auth');

@@ -26,6 +26,8 @@ class Hotel extends Model
     ];
 
     protected $dates = [
+        'check_in',
+        'check_out',
         'deleted_at',
         'created_at',
         'updated_at',

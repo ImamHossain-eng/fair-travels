@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Book;
 use App\Models\Exchange_Book;
 use App\Models\Payment;
+use App\Models\Hotel;
 
 
 class UserController extends Controller
@@ -21,5 +22,13 @@ class UserController extends Controller
     public function payment_index(){
         $payments = Payment::where('email', auth()->user()->email)->get();
         return view('user.payment.index', compact('payments'));
+    }
+    public function hotel_index(){
+        $hotels = Hotel::where('email', auth()->user()->email)->latest()->get();
+        return view('user.hotel.index', compact('hotels'));
+    }
+    public function hotel_show($id){
+        $hotel = Hotel::find($id);
+        return view('user.hotel.show', compact('hotel'));
     }
 }

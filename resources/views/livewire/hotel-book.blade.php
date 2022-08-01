@@ -7,7 +7,7 @@
                         <h3 class="text-center text-success"> <i class="fa fa-bed"></i> Hotel Booking</h3>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body mt-4">
                     <form wire:submit.prevent="saveHotelBooking">
                         @csrf 
                         <div class="row text-center">
@@ -45,7 +45,7 @@
                             <div class="col-md-4 col-sm-6">
                                 <label for="no_of_room" class="form-label">Number of Rooms</label>
                                 <select wire:model="no_of_room" wire:change="loadTotalAmount" class="form-select mb-4">
-                                    <option value="1">Choose Number of Rooms</option>
+                                    <option value="">Choose Number of Rooms</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-md-4 col-sm-6">
                                 <label for="check_out" class="form-label">Check-Out Date</label>
-                                <input type="date" wire:model="check_out" class="form-control mb-4" placeholder="Select Check out Date">
+                                <input type="date" wire:model="check_out" wire:change="loadDayCount" class="form-control mb-4" placeholder="Select Check out Date">
                             </div>
                             <div class="col-md-4 col-sm-6">
                                 <label for="amount" class="form-label">Total Amount</label>
@@ -81,11 +81,7 @@
                         <div class="text-center">
                             <input type="submit" class="btn btn-primary w-50 p-3" value="Save this Booking">
                         </div>
-                    </form>   
-                    <p class="text-center">
-                        {{-- {{$s_destinations}} - {{$hotel_type}} - {{$room_type}} --}}
-                        {{-- {{$check_in}} : {{$check_out}} = {{strtotime($check_out) - strtotime($check_in)}} --}}
-                    </p>                 
+                    </form>              
                 </div>
             </div>
         </div>

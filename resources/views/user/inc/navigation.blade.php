@@ -50,6 +50,15 @@
         </a>
     </li>
 
+    <li class="nav-item @if(request()->routeIs('user.hotel*')) active @endif">
+        <a href="{{ route('user.hotel.index') }}">
+            <span class="icon">
+                <i class="fa fa-bed"></i>
+            </span>
+            <span class="text">{{ __('Hotel Booking') }}</span>
+        </a>
+    </li>
+
     <li class="nav-item @if(request()->routeIs('about')) active @endif">
         <a href="{{ route('about') }}">
             <span class="icon">
