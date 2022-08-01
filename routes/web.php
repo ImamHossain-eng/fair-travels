@@ -44,6 +44,9 @@ Route::post('/foreign-exchange', [PagesController::class, 'foreign_exchange_stor
 Route::put('/foreign-exchange/{id}', [PagesController::class, 'foreign_exchange_address'])->name('foreign.exchange.address');
 Route::post('/foreigh-exchange/payment', [PagesController::class, 'foreign_exchange_payment'])->name('foreign.exchange.payment');
 
+//Hotel Booking for user and visitor
+Route::get('/hotel-booking', [PagesController::class, 'hotel_booking'])->name('hotel.booking.create');
+
 Auth::routes();
  
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -11,6 +11,8 @@ use App\Models\Exchange;
 use App\Models\Exchange_Book;
 use App\Models\Slider;
 use App\Models\Payment;
+use App\Models\Hotel;
+use App\Models\Hotel_Destination;
 
 class PagesController extends Controller
 {
@@ -206,7 +208,10 @@ class PagesController extends Controller
             return redirect()->route('homepage')->with('success', 'Successfully Paid.');
         }else{
             return 'Error during payment';
-        }
+        } 
+    }
+    public function hotel_booking(){
         
+        return view('pages.hotel.booking');
     }
 }

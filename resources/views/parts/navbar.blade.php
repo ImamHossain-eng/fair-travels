@@ -25,7 +25,7 @@
                     <a class="dropdown-item" href="#">VISA PROCESSING</a>
                   </li> --}}
                   <li>
-                    <a class="dropdown-item" href="#">HOTEL BOOKING</a>
+                    <a class="dropdown-item" href="/hotel-booking">HOTEL BOOKING</a>
                   </li>
                   {{-- <li>
                     <a class="dropdown-item" href="#">PRODUCT DELIVERY</a>
