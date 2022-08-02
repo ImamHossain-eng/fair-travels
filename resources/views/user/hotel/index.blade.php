@@ -30,9 +30,11 @@
                             <a href="/user/hotels/{{$hotel->id}}" title="Show this booking" class="btn btn-primary">
                                 <i class="fa fa-eye"></i>
                             </a>
-                            <a href="#" title="Pay for this booking" class="btn btn-success">
+                            @if($hotel->payment == false)
+                            <a href="/hotels/{{$hotel->id}}/payment" title="Pay for this booking" class="btn btn-success">
                                 <i class="fa fa-credit-card"></i>
                             </a>
+                            @endif
                         </td>
                     </tr>
                 @empty 

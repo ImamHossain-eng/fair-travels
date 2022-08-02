@@ -13,6 +13,8 @@ use App\Models\Slider;
 use App\Models\Payment;
 use App\Models\Hotel;
 use App\Models\Hotel_Destination;
+use App\Models\Transport;
+use App\Models\Insurance;
 
 class PagesController extends Controller
 {
@@ -126,6 +128,7 @@ class PagesController extends Controller
             $payment->transaction_id = $request->input('transaction_id');
             $payment->amount = $request->input('amount');
             $payment->method = $request->input('method');
+            $payment->type = 'Package-Booking';
             $payment->save();
             return redirect()->route('homepage')->with('success', 'Successfully Paid, Login with that email for details information.');
 
@@ -210,8 +213,88 @@ class PagesController extends Controller
             return 'Error during payment';
         } 
     }
-    public function hotel_booking(){
-        
+    public function hotel_booking(){ 
         return view('pages.hotel.booking');
+    }
+    public function hotel_payment($id){
+        $hotel = Hotel::find($id);
+        return view('pages.hotel.payment', compact('hotel'));
+    }
+    public function hotel_payment_store(Request $request, $id){
+        $this->validate($request, [
+            'email' => 'required|email',
+            'mobile' => 'required|min:11',
+            'transaction_id' => 'required|string',
+            'amount' => 'required',
+        ]);
+        $hotel = Hotel::find($id);
+        $hotel->payment = true;
+        $hotel->save();
+        //Save new payment details to the DB
+        $payment = new Payment;
+        $payment->email = $request->input('email');
+        $payment->mobile = $request->input('mobile');
+        $payment->transaction_id = $request->input('transaction_id');
+        $payment->amount = $request->input('amount');
+        $payment->method = $request->input('method');
+        $payment->type = 'Hotel-Booking';
+        $payment->save();
+        return redirect()->route('homepage')->with('success', 'Successfully Paid.');
+    }
+    public function transportation(){
+        return view('pages.transportation.book');
+    }
+    public function transportation_payment($id){
+        $transport = Transport::find($id);
+        return view('pages.transportation.payment', compact('transport'));
+    }
+    public function transportation_payment_store(Request $request, $id){
+        $this->validate($request, [
+            'email' => 'required|email',
+            'mobile' => 'required|min:11',
+            'transaction_id' => 'required|string',
+            'amount' => 'required',
+        ]);
+        $transport = Transport::find($id);
+        $transport->payment = true;
+        $transport->save();
+        //Save new payment details to the DB
+        $payment = new Payment;
+        $payment->email = $request->input('email');
+        $payment->mobile = $request->input('mobile');
+        $payment->transaction_id = $request->input('transaction_id');
+        $payment->amount = $request->input('amount');
+        $payment->method = $request->input('method');
+        $payment->type = 'Transport-Booking';
+        $payment->save();
+        return redirect()->route('homepage')->with('success', 'Successfully Paid.');
+    }
+    public function insurance(){
+        return view('pages.insurance.book');
+    }
+    public function insurance_payment($id){
+        $insurance = Insurance::find($id);
+        return view('pages.insurance.payment', compact('insurance'));
+    }
+    public function insurance_payment_store(Request $request, $id){
+        $this->validate($request, [
+            'email' => 'required|email',
+            'mobile' => 'required|min:11',
+            'transaction_id' => 'required|string',
+            'amount' => 'required',
+        ]);
+        $insurance = Insurance::find($id);
+        $insurance->payment = true;
+        $insurance->save();
+        //Save new payment details to the DB
+        $payment = new Payment;
+        $payment->email = $request->input('email');
+        $payment->mobile = $request->input('mobile');
+        $payment->transaction_id = $request->input('transaction_id');
+        $payment->amount = $request->input('amount');
+        $payment->method = $request->input('method');
+        $payment->type = 'Insurance-Service';
+        $payment->save();
+        return redirect()->route('homepage')->with('success', 'Successfully Paid.');
     }
 }

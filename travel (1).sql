@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2022 at 06:35 PM
+-- Generation Time: Aug 02, 2022 at 08:01 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -138,6 +138,93 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `hotels`
+--
+
+CREATE TABLE `hotels` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `destination` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hotel_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `room_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price_per_room` int(11) NOT NULL,
+  `no_of_room` int(11) NOT NULL,
+  `check_in` date NOT NULL,
+  `check_out` date NOT NULL,
+  `amount` double NOT NULL,
+  `user_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` double NOT NULL,
+  `payment` tinyint(1) NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `hotels`
+--
+
+INSERT INTO `hotels` (`id`, `destination`, `hotel_type`, `room_type`, `price_per_room`, `no_of_room`, `check_in`, `check_out`, `amount`, `user_name`, `email`, `mobile`, `payment`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'Chittagong', 'Classic', 'Single-Bed', 1500, 1, '2022-08-02', '2022-08-04', 3000, 'User', 'user@gmail.com', 1727084278, 1, NULL, '2022-08-01 18:42:20', '2022-08-02 14:18:03'),
+(2, 'Cox\'s Bazar', 'Three-Star', 'Single-Bed', 1500, 2, '2022-08-02', '2022-08-04', 6000, 'User Name', 'user@gmail.com', 1727084278, 0, NULL, '2022-08-02 14:33:05', '2022-08-02 14:33:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hotel__destinations`
+--
+
+CREATE TABLE `hotel__destinations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `service` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `hotel__destinations`
+--
+
+INSERT INTO `hotel__destinations` (`id`, `name`, `status`, `created_at`, `updated_at`, `service`) VALUES
+(1, 'Chittagong', 1, NULL, NULL, 'Hotel'),
+(2, 'Cox\'s Bazar', 1, NULL, NULL, 'Hotel'),
+(3, 'Dhaka', 1, NULL, NULL, 'Transport'),
+(4, 'Sherpur', 1, NULL, NULL, 'Transport'),
+(5, 'Sylhet', 1, NULL, NULL, 'Insurance'),
+(6, 'England', 1, NULL, NULL, 'Insurance');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `insurances`
+--
+
+CREATE TABLE `insurances` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `region` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `starting_date` date NOT NULL,
+  `ending_date` date NOT NULL,
+  `amount` double NOT NULL,
+  `user_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `insurances`
+--
+
+INSERT INTO `insurances` (`id`, `region`, `starting_date`, `ending_date`, `amount`, `user_name`, `email`, `mobile`, `payment`, `created_at`, `updated_at`) VALUES
+(1, 'England', '2022-08-03', '2022-08-11', 288, 'user', 'user@gmail.com', '017', 1, '2022-08-02 17:36:13', '2022-08-02 17:39:14');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `messages`
 --
 
@@ -191,7 +278,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2022_05_14_232055_create_exchanges_table', 6),
 (16, '2022_06_11_212737_create_sliders_table', 8),
 (19, '2022_07_21_211934_create_payments_table', 9),
-(21, '2022_05_16_210316_create_exchange__books_table', 10);
+(21, '2022_05_16_210316_create_exchange__books_table', 10),
+(24, '2022_08_01_223524_create_hotel__destinations_table', 12),
+(25, '2022_08_01_214552_create_hotels_table', 13),
+(26, '2022_08_02_193502_add_type_to_payments_table', 14),
+(28, '2022_08_02_220622_create_transports_table', 15),
+(30, '2022_08_02_230101_create_insurances_table', 16);
 
 -- --------------------------------------------------------
 
@@ -253,16 +345,20 @@ CREATE TABLE `payments` (
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `payments`
 --
 
-INSERT INTO `payments` (`id`, `email`, `mobile`, `transaction_id`, `amount`, `method`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'user@gmail.com', '01727084278', 'jdafgbdsfgb123434', 128, 'Bkash', 1, NULL, '2022-07-22 14:15:07', '2022-07-22 14:43:12'),
-(3, 'user@gmail.com', '01727084278', 'jdafgbdsfgb123434', 8757, 'Bkash', 1, NULL, '2022-07-22 15:56:11', '2022-07-22 15:58:45');
+INSERT INTO `payments` (`id`, `email`, `mobile`, `transaction_id`, `amount`, `method`, `status`, `deleted_at`, `created_at`, `updated_at`, `type`) VALUES
+(1, 'user@gmail.com', '01727084278', 'jdafgbdsfgb123434', 128, 'Bkash', 1, NULL, '2022-07-22 14:15:07', '2022-07-22 14:43:12', NULL),
+(3, 'user@gmail.com', '01727084278', 'jdafgbdsfgb123434', 8757, 'Bkash', 1, NULL, '2022-07-22 15:56:11', '2022-07-22 15:58:45', NULL),
+(4, 'user@gmail.com', '01727084278', 'jdafgbdsfgb123434', 3000, 'Bkash', 0, NULL, '2022-08-02 14:18:03', '2022-08-02 14:18:03', 'Hotel-Booking'),
+(5, 'user@gmail.com', '01727084278', 'Qui labore adipisci', 24000, 'Bkash', 0, NULL, '2022-08-02 16:57:02', '2022-08-02 16:57:02', 'Hotel-Booking'),
+(6, 'user@gmail.com', '01727084278', 'Neque non ut quis et', 288, 'Bkash', 0, NULL, '2022-08-02 17:39:14', '2022-08-02 17:39:14', 'Insurance-Service');
 
 -- --------------------------------------------------------
 
@@ -309,6 +405,35 @@ INSERT INTO `sliders` (`id`, `user_id`, `title`, `subtitle`, `image`, `deleted_a
 (3, 1, 'Est quam molestias e', 'Dolores facilis omni', '1654964248.jpg', NULL, '2022-06-11 16:17:28', '2022-06-11 16:17:28'),
 (4, 1, 'Quae aute quo consec', 'Distinctio Qui quid dd', '1654964258.jpg', NULL, '2022-06-11 16:17:38', '2022-06-11 16:54:55'),
 (5, 1, 'Aut proident impedi', 'Ut sunt aliquam iur', '1654967000.jpg', '2022-06-11 17:03:32', '2022-06-11 17:03:20', '2022-06-11 17:03:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transports`
+--
+
+CREATE TABLE `transports` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `location` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price_per_day` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `booking_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_of_days` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` double NOT NULL,
+  `user_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transports`
+--
+
+INSERT INTO `transports` (`id`, `location`, `type`, `price_per_day`, `booking_date`, `no_of_days`, `amount`, `user_name`, `email`, `mobile`, `payment`, `created_at`, `updated_at`) VALUES
+(1, 'Dhaka', 'Car', '12000', '2022-08-16', '2', 24000, 'User Name', 'user@gmail.com', '01727084278', 1, '2022-08-02 16:52:41', '2022-08-02 16:57:02');
 
 -- --------------------------------------------------------
 
@@ -368,6 +493,24 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `hotels`
+--
+ALTER TABLE `hotels`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hotel__destinations`
+--
+ALTER TABLE `hotel__destinations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `insurances`
+--
+ALTER TABLE `insurances`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `messages`
 --
 ALTER TABLE `messages`
@@ -413,6 +556,12 @@ ALTER TABLE `sliders`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `transports`
+--
+ALTER TABLE `transports`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -448,6 +597,24 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `hotels`
+--
+ALTER TABLE `hotels`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `hotel__destinations`
+--
+ALTER TABLE `hotel__destinations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `insurances`
+--
+ALTER TABLE `insurances`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
@@ -457,7 +624,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `packages`
@@ -469,7 +636,7 @@ ALTER TABLE `packages`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -482,6 +649,12 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `sliders`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `transports`
+--
+ALTER TABLE `transports`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

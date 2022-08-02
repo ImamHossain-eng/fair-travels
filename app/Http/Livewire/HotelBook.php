@@ -26,7 +26,7 @@ class HotelBook extends Component
     
 
     public function mount(){
-        $getDestination = Hotel_Destination::all();
+        $getDestination = Hotel_Destination::where('service', 'Hotel')->get();
         $this->destinations = $getDestination;
             
         if(auth()->check()){
@@ -68,11 +68,10 @@ class HotelBook extends Component
             $hotel->mobile = $this->mobile;
             $hotel->payment = false;
             $hotel->save();
-            return redirect()->route('homepage')->with('success', 'Successfully Booked');
+            return redirect()->route('hotel.booking.payment', $hotel->id)->with('success', 'Successfully Booked');
         }else{
             return back()->with('error', 'Please try again');
-        }
-        
+        }  
     }
 
     public function render()

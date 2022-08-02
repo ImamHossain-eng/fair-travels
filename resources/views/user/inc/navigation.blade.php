@@ -31,6 +31,15 @@
         </a>
     </li>
 
+    <li class="nav-item @if(request()->routeIs('user.payment*')) active @endif">
+        <a href="{{ route('user.payment.index') }}">
+            <span class="icon">
+                <i class="fa fa-credit-card"></i>
+            </span>
+            <span class="text">{{ __('Payment') }}</span>
+        </a>
+    </li>
+
     <li class="nav-item @if(request()->routeIs('user.money*')) active @endif">
         <a href="{{ route('user.money.index') }}">
               <span class="icon">
@@ -41,14 +50,7 @@
     </li>
 
   
-    <li class="nav-item @if(request()->routeIs('user.payment*')) active @endif">
-        <a href="{{ route('user.payment.index') }}">
-            <span class="icon">
-                <i class="fa fa-credit-card"></i>
-            </span>
-            <span class="text">{{ __('Payment') }}</span>
-        </a>
-    </li>
+    
 
     <li class="nav-item @if(request()->routeIs('user.hotel*')) active @endif">
         <a href="{{ route('user.hotel.index') }}">
@@ -56,6 +58,24 @@
                 <i class="fa fa-bed"></i>
             </span>
             <span class="text">{{ __('Hotel Booking') }}</span>
+        </a>
+    </li>
+
+    <li class="nav-item @if(request()->routeIs('user.transport*')) active @endif">
+        <a href="{{ route('user.transport.index') }}">
+            <span class="icon">
+                <i class="fa fa-subway"></i>
+            </span>
+            <span class="text">{{ __('Hotel Booking') }}</span>
+        </a>
+    </li>
+
+    <li class="nav-item @if(request()->routeIs('user.insurance*')) active @endif">
+        <a href="{{ route('user.insurance.index') }}">
+            <span class="icon">
+                <i class="fa fa-credit-card"></i>
+            </span>
+            <span class="text">{{ __('Insurance') }}</span>
         </a>
     </li>
 

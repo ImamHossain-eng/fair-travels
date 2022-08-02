@@ -14,6 +14,7 @@
                     <th>Sender Number</th>
                     <th>Method</th>
                     <th>Amount</th>
+                    <th>Paid for</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -24,6 +25,7 @@
                         <td>{{$payment->mobile}}</td>
                         <td>{{$payment->method}}</td>
                         <td>{{number_format($payment->amount, 2)}} /=</td>
+                        <td>{{$payment->type}}</td>
                         <td>
                             @if($payment->status == true) Confirmed
                             @else Pending

@@ -47,6 +47,20 @@ Route::post('/foreigh-exchange/payment', [PagesController::class, 'foreign_excha
 //Hotel Booking for user and visitor
 Route::get('/hotel-booking', [PagesController::class, 'hotel_booking'])->name('hotel.booking.create');
 
+//Payment for Hotel Booking
+Route::get('/hotels/{id}/payment', [PagesController::class, 'hotel_payment'])->name('hotel.booking.payment');
+Route::post('/hotels/{id}/payment', [PagesController::class, 'hotel_payment_store'])->name('hotel.booking.store');
+
+//Transportation service for user and visitor
+Route::get('/transportation', [PagesController::class, 'transportation'])->name('transportation.create');
+Route::get('/transportation/{id}/payment', [PagesController::class, 'transportation_payment'])->name('transportation.payment');
+Route::post('/transportation/{id}/payment', [PagesController::class, 'transportation_payment_store'])->name('transportation.payment.store');
+
+//Insurance Service for User and Visitor
+Route::get('/insurance', [PagesController::class, 'insurance'])->name('insurance.create');
+Route::get('/insurance/{id}/payment', [PagesController::class, 'insurance_payment'])->name('insurance.payment');
+Route::post('/insurance/{id}/payment', [PagesController::class, 'insurance_payment_store'])->name('insurance.payment.store');
+
 Auth::routes();
  
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -68,6 +82,14 @@ Route::prefix('user')->middleware('user')->group(function () {
     //Hotel Booking
     Route::get('/hotels', [UserController::class, 'hotel_index'])->name('user.hotel.index');
     Route::get('/hotels/{id}', [UserController::class, 'hotel_show'])->name('user.hotel.show');
+
+    //Transportation
+    Route::get('/transport', [UserController::class, 'transport_index'])->name('user.transport.index');
+
+    //Insurance
+    Route::get('/insurance', [UserController::class, 'insurance_index'])->name('user.insurance.index');
+
+    
 });
 
 Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update')->middleware('auth');

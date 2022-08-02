@@ -37,10 +37,10 @@
                     <a class="dropdown-item" href="/#">CRUISE RESERVATION</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="/#">TRANSPORTATION</a>
+                    <a class="dropdown-item" href="/transportation">TRANSPORTATION</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="/#">INSURANCES</a>
+                    <a class="dropdown-item" href="/insurance">INSURANCES</a>
                   </li>
                 </ul>
               </li>

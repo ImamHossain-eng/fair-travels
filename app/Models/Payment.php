@@ -15,7 +15,8 @@ class Payment extends Model
         'mobile',
         'transaction_id',
         'amount',
-        'method'
+        'method',
+        'type'
     ];
 
     protected $dates = [
