@@ -171,6 +171,19 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'], function() {
 
     //Hotel Service
     Route::get('/hotel', [AdminController::class, 'hotel_index'])->name('admin.hotel.index');
+    Route::get('/hotel/{id}', [AdminController::class, 'hotel_show'])->name('admin.hotel.show');
+    //Cruise Service
+    Route::get('/cruise', [AdminController::class, 'cruise_index'])->name('admin.cruise.index');
+    Route::get('/transport', [AdminController::class, 'transport_index'])->name('admin.transport.index');
+    Route::get('/insurance', [AdminController::class, 'insurance_index'])->name('admin.insurance.index');
+
+    //Service Crud
+    Route::get('/service', [AdminController::class, 'service_index'])->name('admin.service.index');
+    Route::view('/service/create', 'admin.service.create')->name('admin.service.create');
+    Route::post('/service', [AdminController::class, 'service_store'])->name('admin.service.store');
+    Route::delete('/service/{id}', [AdminController::class, 'service_destroy'])->name('admin.service.destroy');
+
+
 
 
 });

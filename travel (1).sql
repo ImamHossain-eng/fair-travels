@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2022 at 08:01 PM
+-- Generation Time: Aug 03, 2022 at 09:34 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -54,7 +54,60 @@ CREATE TABLE `books` (
 INSERT INTO `books` (`id`, `package_id`, `adult`, `children`, `name`, `email`, `mobile`, `street`, `city`, `zip`, `country`, `amount`, `status`, `deleted_at`, `created_at`, `updated_at`, `payment`) VALUES
 (5, 4, 3, NULL, 'User', 'user@gmail.com', '017', 'Munshiganj', 'Gazaria', '1510', 'Bangladesh', 57, 1, NULL, '2022-07-21 15:50:07', '2022-07-21 16:06:01', 1),
 (7, 5, 2, NULL, 'Abu Taher', 'user@gmail.com', '01727084278', 'Munshiganj', 'Gazaria', '1510', 'Bangladesh', 128, 1, NULL, '2022-07-22 14:12:21', '2022-07-22 14:43:12', 1),
-(8, 2, 1, NULL, 'User', 'user@gmail.com', '01727084278', 'Munshiganj', 'Gazaria', '1510', 'Bangladesh', 88, 0, NULL, '2022-07-22 14:20:55', '2022-07-22 14:20:55', 0);
+(8, 2, 1, NULL, 'User', 'user@gmail.com', '01727084278', 'Munshiganj', 'Gazaria', '1510', 'Bangladesh', 88, 0, NULL, '2022-07-22 14:20:55', '2022-07-22 14:20:55', 0),
+(9, 5, 3, NULL, 'User', 'user@gmail.com', '01756984521', 'Munshiganj', 'Gazaria', '1510', 'Bangladesh', 192, 0, NULL, '2022-08-03 17:49:17', '2022-08-03 17:49:17', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cruises`
+--
+
+CREATE TABLE `cruises` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `c_trip_id` int(11) NOT NULL,
+  `person` int(11) NOT NULL,
+  `amount` double NOT NULL,
+  `user_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cruises`
+--
+
+INSERT INTO `cruises` (`id`, `c_trip_id`, `person`, `amount`, `user_name`, `email`, `mobile`, `payment`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, 943, 'User', 'user@gmail.com', '01756984521', 0, '2022-08-03 17:38:12', '2022-08-03 17:38:12'),
+(2, 2, 1, 943, 'User', 'user@gmail.com', '01723654895', 1, '2022-08-03 17:45:31', '2022-08-03 17:45:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `c_trips`
+--
+
+CREATE TABLE `c_trips` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `port` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` date NOT NULL,
+  `price` double NOT NULL,
+  `info` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `c_trips`
+--
+
+INSERT INTO `c_trips` (`id`, `port`, `date`, `price`, `info`, `created_at`, `updated_at`) VALUES
+(2, 'Mongla', '2022-10-28', 943, '<p>xfjgfj</p>', '2022-08-03 16:22:21', '2022-08-03 16:22:21'),
+(3, 'Mongla', '2022-10-30', 513, '<p>yjkdyhkdhnfhgn fghsfg</p>', '2022-08-03 16:22:29', '2022-08-03 16:29:57'),
+(5, 'Dhaka', '2022-11-21', 150, 'adrgsrtg', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -117,7 +170,7 @@ INSERT INTO `exchange__books` (`id`, `exchange_id`, `type`, `amount`, `bdt_amoun
 (7, 2, 'Cash', 105.00, 7126.35, 1915970075, 'admin@gmail.com', NULL, NULL, NULL, NULL, 0, 0, NULL, '2022-07-22 15:47:16', '2022-07-22 15:47:16'),
 (8, 1, 'Cash', 100.00, 8757.00, 1727084278, 'user@gmail.com', NULL, NULL, NULL, NULL, 0, 0, NULL, '2022-07-22 15:54:56', '2022-07-22 15:54:56'),
 (9, 1, 'Cash', 100.00, 8757.00, 1727084278, 'user@gmail.com', NULL, NULL, NULL, NULL, 0, 0, NULL, '2022-07-22 15:55:56', '2022-07-22 15:55:56'),
-(10, 2, 'Cash', 150.00, 10180.50, 1915970075, 'admin@gmail.com', NULL, NULL, NULL, NULL, 0, 0, NULL, '2022-07-22 16:01:04', '2022-07-22 16:01:04');
+(10, 2, 'Cash', 150.00, 10180.50, 1915970075, 'admin@gmail.com', NULL, NULL, NULL, NULL, 1, 0, NULL, '2022-07-22 16:01:04', '2022-08-03 15:47:51');
 
 -- --------------------------------------------------------
 
@@ -192,8 +245,8 @@ INSERT INTO `hotel__destinations` (`id`, `name`, `status`, `created_at`, `update
 (2, 'Cox\'s Bazar', 1, NULL, NULL, 'Hotel'),
 (3, 'Dhaka', 1, NULL, NULL, 'Transport'),
 (4, 'Sherpur', 1, NULL, NULL, 'Transport'),
-(5, 'Sylhet', 1, NULL, NULL, 'Insurance'),
-(6, 'England', 1, NULL, NULL, 'Insurance');
+(5, 'Inside Country', 1, NULL, NULL, 'Insurance'),
+(6, 'Outside of Country', 1, NULL, NULL, 'Insurance');
 
 -- --------------------------------------------------------
 
@@ -220,7 +273,8 @@ CREATE TABLE `insurances` (
 --
 
 INSERT INTO `insurances` (`id`, `region`, `starting_date`, `ending_date`, `amount`, `user_name`, `email`, `mobile`, `payment`, `created_at`, `updated_at`) VALUES
-(1, 'England', '2022-08-03', '2022-08-11', 288, 'user', 'user@gmail.com', '017', 1, '2022-08-02 17:36:13', '2022-08-02 17:39:14');
+(1, 'England', '2022-08-03', '2022-08-11', 288, 'user', 'user@gmail.com', '017', 0, '2022-08-02 17:36:13', '2022-08-02 17:39:14'),
+(2, 'Inside Country', '2022-08-03', '2022-08-11', 1200, 'user ', 'user@gmail.com', '01732548965', 1, '2022-08-03 15:30:24', '2022-08-03 15:30:55');
 
 -- --------------------------------------------------------
 
@@ -283,7 +337,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (25, '2022_08_01_214552_create_hotels_table', 13),
 (26, '2022_08_02_193502_add_type_to_payments_table', 14),
 (28, '2022_08_02_220622_create_transports_table', 15),
-(30, '2022_08_02_230101_create_insurances_table', 16);
+(30, '2022_08_02_230101_create_insurances_table', 16),
+(31, '2022_08_03_213700_create_c_trips_table', 17),
+(32, '2022_08_03_223130_create_cruises_table', 18);
 
 -- --------------------------------------------------------
 
@@ -356,9 +412,11 @@ CREATE TABLE `payments` (
 INSERT INTO `payments` (`id`, `email`, `mobile`, `transaction_id`, `amount`, `method`, `status`, `deleted_at`, `created_at`, `updated_at`, `type`) VALUES
 (1, 'user@gmail.com', '01727084278', 'jdafgbdsfgb123434', 128, 'Bkash', 1, NULL, '2022-07-22 14:15:07', '2022-07-22 14:43:12', NULL),
 (3, 'user@gmail.com', '01727084278', 'jdafgbdsfgb123434', 8757, 'Bkash', 1, NULL, '2022-07-22 15:56:11', '2022-07-22 15:58:45', NULL),
-(4, 'user@gmail.com', '01727084278', 'jdafgbdsfgb123434', 3000, 'Bkash', 0, NULL, '2022-08-02 14:18:03', '2022-08-02 14:18:03', 'Hotel-Booking'),
+(4, 'user@gmail.com', '01727084278', 'jdafgbdsfgb123434', 3000, 'Bkash', 1, NULL, '2022-08-02 14:18:03', '2022-08-03 18:10:03', 'Hotel-Booking'),
 (5, 'user@gmail.com', '01727084278', 'Qui labore adipisci', 24000, 'Bkash', 0, NULL, '2022-08-02 16:57:02', '2022-08-02 16:57:02', 'Hotel-Booking'),
-(6, 'user@gmail.com', '01727084278', 'Neque non ut quis et', 288, 'Bkash', 0, NULL, '2022-08-02 17:39:14', '2022-08-02 17:39:14', 'Insurance-Service');
+(6, 'user@gmail.com', '01727084278', 'Neque non ut quis et', 288, 'Bkash', 0, NULL, '2022-08-02 17:39:14', '2022-08-02 17:39:14', 'Insurance-Service'),
+(7, 'user@gmail.com', '01756545654', 'fszgjfgj7788', 1200, 'Bkash', 0, NULL, '2022-08-03 15:30:55', '2022-08-03 15:30:55', 'Insurance-Service'),
+(8, 'user@gmail.com', '01725896321', 'jkgjh44554', 943, 'Nagad', 0, NULL, '2022-08-03 17:45:53', '2022-08-03 17:45:53', 'Cruise-Reservation');
 
 -- --------------------------------------------------------
 
@@ -433,7 +491,7 @@ CREATE TABLE `transports` (
 --
 
 INSERT INTO `transports` (`id`, `location`, `type`, `price_per_day`, `booking_date`, `no_of_days`, `amount`, `user_name`, `email`, `mobile`, `payment`, `created_at`, `updated_at`) VALUES
-(1, 'Dhaka', 'Car', '12000', '2022-08-16', '2', 24000, 'User Name', 'user@gmail.com', '01727084278', 1, '2022-08-02 16:52:41', '2022-08-02 16:57:02');
+(1, 'Dhaka', 'Car', '12000', '2022-08-16', '2', 24000, 'User Name', 'user@gmail.com', '01727084278', 0, '2022-08-02 16:52:41', '2022-08-02 16:57:02');
 
 -- --------------------------------------------------------
 
@@ -471,6 +529,18 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 -- Indexes for table `books`
 --
 ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cruises`
+--
+ALTER TABLE `cruises`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `c_trips`
+--
+ALTER TABLE `c_trips`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -576,7 +646,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `cruises`
+--
+ALTER TABLE `cruises`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `c_trips`
+--
+ALTER TABLE `c_trips`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `exchanges`
@@ -606,13 +688,13 @@ ALTER TABLE `hotels`
 -- AUTO_INCREMENT for table `hotel__destinations`
 --
 ALTER TABLE `hotel__destinations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `insurances`
 --
 ALTER TABLE `insurances`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -624,7 +706,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `packages`
@@ -636,7 +718,7 @@ ALTER TABLE `packages`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`

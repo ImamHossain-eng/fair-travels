@@ -14,6 +14,10 @@ use App\Models\Slider;
 use App\Models\Payment;
 use App\Models\CTrip;
 use App\Models\Hotel;
+use App\Models\Cruise;
+use App\Models\Transport;
+use App\Models\Insurance;
+use App\Models\Hotel_Destination;
 
 use Image, File;
 
@@ -405,5 +409,40 @@ class AdminController extends Controller
     public function hotel_index(){
         $hotels = Hotel::latest()->paginate(10);
         return view('admin.service.hotel', compact('hotels'));
+    }
+    public function hotel_show($id){
+        $hotel = Hotel::find($id);
+        return view('admin.service.hotel_show', compact('hotel'));
+    }
+    public function cruise_index(){
+        $cruises = Cruise::latest()->paginate(10);
+        return view('admin.service.cruise', compact('cruises'));
+    }
+    public function transport_index(){
+        $transports = Transport::latest()->paginate(10);
+        return view('admin.service.transport', compact('transports'));
+    }
+    public function insurance_index(){
+        $insurances = Insurance::latest()->paginate(10);
+        return view('admin.service.insurance', compact('insurances'));
+    }
+    public function service_index(){
+        $services = Hotel_Destination::latest()->paginate(10);
+        return view('admin.service.index', compact('services'));
+    }
+    public function service_store(Request $request){
+        if($request->input('service') != null){
+            $service = new Hotel_Destination;
+            $service->name = $request->input('name');
+            $service->service = $request->input('service');
+            $service->save();
+            return redirect()->route('admin.service.index')->with('success', 'Successfully Inserted.');
+        }else{
+            return back()->with('error', 'Please select particular service.');
+        }
+    }
+    public function service_destroy($id){
+        Hotel_Destination::find($id)->delete();
+        return redirect()->route('admin.service.index')->with('error', 'Successfully Removed.');
     }
 }

@@ -30,11 +30,17 @@
                         <td>{{$hotel->no_of_room}}</td>
                         <td>{{number_format($hotel->amount, 2)}}</td>
                         <td>{{$hotel->email}}</td>
-                        <td>Option</td>
+                        <td>
+                            <a href="/admin/hotel/{{$hotel->id}}" title="Show this Hotel" class="btn btn-primary">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        <br>
+        {{$hotels->links()}}
     </div>
 </div>
 @endsection

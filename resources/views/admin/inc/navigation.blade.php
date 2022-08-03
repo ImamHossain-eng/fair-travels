@@ -59,6 +59,15 @@
         </a>
     </li>
 
+    <li class="nav-item @if(request()->routeIs('admin.service*')) active @endif">
+        <a href="{{ route('admin.service.index') }}">
+            <span class="icon">
+                <i class="fa fa-map"></i>
+            </span>
+            <span class="text">Service Location</span>
+        </a>
+    </li>
+
     <li class="nav-item @if(request()->routeIs('admin.slider*')) active @endif">
         <a href="{{ route('admin.slider.index') }}">
             <span class="icon">
@@ -110,6 +119,33 @@
                 <i class="fa fa-bed"></i>
             </span>
             <span class="text">Hotel Booking</span>
+        </a>
+    </li>
+
+    <li class="nav-item @if(request()->routeIs('admin.cruise*')) active @endif">
+        <a href="{{ route('admin.cruise.index') }}">
+            <span class="icon">
+                <i class="fa fa-ship"></i>
+            </span>
+            <span class="text">Cruise Reservation</span>
+        </a>
+    </li>
+
+    <li class="nav-item @if(request()->routeIs('admin.transport*')) active @endif">
+        <a href="{{ route('admin.transport.index') }}">
+            <span class="icon">
+                <i class="fa fa-bus"></i>
+            </span>
+            <span class="text">Transportation</span>
+        </a>
+    </li>
+
+    <li class="nav-item @if(request()->routeIs('admin.insurance*')) active @endif">
+        <a href="{{ route('admin.insurance.index') }}">
+            <span class="icon">
+                <i class="fa fa-credit-card"></i>
+            </span>
+            <span class="text">Insurance Service</span>
         </a>
     </li>
 
