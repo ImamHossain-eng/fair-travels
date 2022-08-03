@@ -50,6 +50,15 @@
         </a>
     </li>
 
+    <li class="nav-item @if(request()->routeIs('admin.ctrip*')) active @endif">
+        <a href="{{ route('admin.ctrip.index') }}">
+            <span class="icon">
+                <i class="fa fa-ship"></i>
+            </span>
+            <span class="text">Cruise Trip</span>
+        </a>
+    </li>
+
     <li class="nav-item @if(request()->routeIs('admin.slider*')) active @endif">
         <a href="{{ route('admin.slider.index') }}">
             <span class="icon">
@@ -94,6 +103,17 @@
             <span class="text">Exchange Request</span>
         </a>
     </li>
+
+    <li class="nav-item @if(request()->routeIs('admin.hotel*')) active @endif">
+        <a href="{{ route('admin.hotel.index') }}">
+            <span class="icon">
+                <i class="fa fa-bed"></i>
+            </span>
+            <span class="text">Hotel Booking</span>
+        </a>
+    </li>
+
+
   
 
     <li class="nav-item @if(request()->routeIs('admin.message*')) active @endif">

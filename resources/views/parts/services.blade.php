@@ -27,23 +27,17 @@
                 <h3>Foreign Exchange</h3>       
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 service-img">
-                <div class="icon">
-                    <i class="fa fa-bed fa-4x"></i>
-                </div>
+                <a href="/hotel-booking" class="text-dark" class="serviceBtn">
+                    <div class="icon">
+                        <i class="fa fa-bed fa-4x"></i>
+                    </div>
+                </a>
                 <h3>Hotel Booking</h3>
                 
-            </div>
-            {{-- <div class="col-lg-4 col-md-4 col-sm-6 service-img">
-                <div class="icon">
-                    <i class="fa fa-product-hunt fa-4x"></i>
-                </div>
-                <h3>Product Delivery</h3>
-                
-            </div> --}}
-            
+            </div>            
 
             <div class="col-lg-4 col-md-4 col-sm-6 service-img">
-                <a href="/#" class="text-dark" class="serviceBtn">
+                <a href="/cruise" class="text-dark" class="serviceBtn">
                     <div class="icon">
                         <i class="fa fa-ship fa-4x"></i>
                     </div>
@@ -51,7 +45,7 @@
                 <h3>Cruise Reservation</h3>       
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 service-img">
-                <a href="/#" class="text-dark" class="serviceBtn">
+                <a href="/transportation" class="text-dark" class="serviceBtn">
                     <div class="icon">
                         <i class="fa fa-subway fa-4x"></i>
                     </div>
@@ -59,7 +53,7 @@
                 <h3>Transportation</h3>       
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6 service-img">
-                <a href="/#" class="text-dark" class="serviceBtn">
+                <a href="/insurance" class="text-dark" class="serviceBtn">
                     <div class="icon">
                         <i class="fa fa-credit-card fa-4x"></i>
                     </div>

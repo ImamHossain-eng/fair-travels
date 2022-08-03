@@ -66,7 +66,7 @@
             <span class="icon">
                 <i class="fa fa-subway"></i>
             </span>
-            <span class="text">{{ __('Hotel Booking') }}</span>
+            <span class="text">{{ __('Transportation') }}</span>
         </a>
     </li>
 
@@ -74,6 +74,15 @@
         <a href="{{ route('user.insurance.index') }}">
             <span class="icon">
                 <i class="fa fa-credit-card"></i>
+            </span>
+            <span class="text">{{ __('Insurance') }}</span>
+        </a>
+    </li>
+
+    <li class="nav-item @if(request()->routeIs('user.cruise*')) active @endif">
+        <a href="{{ route('user.cruise.index') }}">
+            <span class="icon">
+                <i class="fa fa-ship"></i>
             </span>
             <span class="text">{{ __('Insurance') }}</span>
         </a>
@@ -90,7 +99,7 @@
         </a>
     </li>
 
-    <li class="nav-item nav-item-has-children">
+    {{-- <li class="nav-item nav-item-has-children">
         <a class="collapsed" href="#0" class="" data-bs-toggle="collapse" data-bs-target="#ddmenu_1"
            aria-controls="ddmenu_1" aria-expanded="true" aria-label="Toggle navigation">
             <span class="icon">
@@ -107,5 +116,5 @@
                 <a href="#">Child menu</a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 </ul>

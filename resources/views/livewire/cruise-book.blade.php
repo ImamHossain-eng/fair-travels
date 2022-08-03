@@ -4,40 +4,45 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <h3 class="text-center text-success"> <i class="fa fa-credit-card"></i> Insurance Service</h3>
+                        <h3 class="text-center text-success"> <i class="fa fa-ship"></i> Cruise Reservation Service</h3>
                     </div>
                 </div>
                 <div class="card-body mt-4">
-                    <form wire:submit.prevent="saveInsurance">
+                    <form wire:submit.prevent="saveCruiseBook">
                         @csrf 
                         <div class="row text-center">
+
                             <div class="col-md-4 col-sm-6">
-                                <label for="region" class="form-label">Select Region</label>
-                                <select wire:model="region" wire:change="loadPricePerDay" class="form-select mb-4">
-                                    <option value="">Choose Region</option>
-                                    @foreach($regions as $desti)
-                                        <option value="{{$desti->name}}">{{$desti->name}}</option>
+                                <label for="region" class="form-label">Select Port</label>
+                                <select wire:model="selected_port" wire:change="loadTripByPort" class="form-select mb-4">
+                                    @if(!$selected_port)
+                                    <option value="">Choose Pick Up Port</option>
+                                    @foreach($trips as $st)
+                                        <option value="{{$st->port}}">{{$st->port}}</option>
                                     @endforeach
+                                    @else 
+                                    <option value="">{{$selected_port}}</option>
+                                    @endif
                                 </select>
-                            </div>
-                            <div class="col-md-4 col-sm-6">
-                                <label for="starting_date" class="form-label">Starting Date</label>
-                                <input type="date" wire:model="starting_date" class="form-control mb-4" placeholder="Select Starting Date">
-                            </div>
-                            <div class="col-md-4 col-sm-6">
-                                <label for="ending_date" class="form-label">Ending Date</label>
-                                <input type="date" wire:model="ending_date" wire:change="loadNoOfDays" class="form-control mb-4" placeholder="Select Ending Date">
                             </div>
 
                             <div class="col-md-4 col-sm-6">
-                                <label for="price_per_day" class="form-label">Price Per Day</label>
-                                <input type="number" wire:model="price_per_day" class="form-control" placeholder="Price Per Day" disabled>
-                                
+                                <label for="date" class="form-label">Select Available Date</label>
+                                <select wire:model="trip_id" wire:change="loadPPP" class="form-select mb-4">
+                                    <option value="">Select Date</option>
+                                    @foreach($strips as $trip)
+                                        <option value="{{$trip->id}}">{{$trip->date->format('F d, Y')}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             
                             <div class="col-md-4 col-sm-6">
-                                <label for="no_of_days" class="form-label">No of Days</label>
-                                <input type="number" wire:model="no_of_days" wire:change="loadTotalAmount" class="form-control mb-4" placeholder="Enter No of Days to Rent">
+                                <label for="price_per_person" class="form-label">Price Per Person</label>
+                                <input type="number" wire:model="price_per_person" class="form-control" placeholder="Price Per Day" disabled>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <label for="no_of_person" class="form-label">Price Per Person</label>
+                                <input type="number" wire:model="no_of_person" wire:change="calTotalAmount" class="form-control" placeholder="No of Person">
                             </div>
                             <div class="col-md-4 col-sm-6">
                                 <label for="amount" class="form-label">Total Amount</label>
@@ -59,10 +64,13 @@
                         <div class="text-center">
                             <input type="submit" class="btn btn-primary w-50 p-3" value="Save this Booking">
                         </div>
-                    </form>              
+                    </form>    
+                    
+                    <p></p>
                 </div>
             </div>
         </div>
     </section>  
 </div>
+
 

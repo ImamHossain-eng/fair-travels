@@ -16,6 +16,7 @@
                     <th>Ending Date</th>
                     <th>Amount</th>
                     <th>Payment</th>
+                    <th>Option</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,13 @@
                         <td> {{$insurance->ending_date->format('F d, Y')}} </td>
                         <td> {{number_format($insurance->amount, 2)}} </td>
                         <td>@if($insurance->payment == false) Pending @else Confirmed @endif</td>
+                        <td>
+                            @if($insurance->payment == false)
+                            <a href="/insurance/{{$insurance->id}}/payment" title="Pay for this booking" class="btn btn-success">
+                                <i class="fa fa-credit-card"></i>
+                            </a>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

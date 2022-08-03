@@ -15,6 +15,7 @@ use App\Models\Hotel;
 use App\Models\Hotel_Destination;
 use App\Models\Transport;
 use App\Models\Insurance;
+use App\Models\Cruise;
 
 class PagesController extends Controller
 {
@@ -294,6 +295,31 @@ class PagesController extends Controller
         $payment->amount = $request->input('amount');
         $payment->method = $request->input('method');
         $payment->type = 'Insurance-Service';
+        $payment->save();
+        return redirect()->route('homepage')->with('success', 'Successfully Paid.');
+    }
+    public function cruise_payment($id){
+        $cruise = Cruise::find($id);
+        return view('pages.cruise.payment', compact('cruise'));
+    }
+    public function cruise_payment_store(Request $request, $id){
+        $this->validate($request, [
+            'email' => 'required|email',
+            'mobile' => 'required|min:11',
+            'transaction_id' => 'required|string',
+            'amount' => 'required',
+        ]);
+        $cruise = Cruise::find($id);
+        $cruise->payment = true;
+        $cruise->save();
+        //Save new payment details to the DB
+        $payment = new Payment;
+        $payment->email = $request->input('email');
+        $payment->mobile = $request->input('mobile');
+        $payment->transaction_id = $request->input('transaction_id');
+        $payment->amount = $request->input('amount');
+        $payment->method = $request->input('method');
+        $payment->type = 'Cruise-Reservation';
         $payment->save();
         return redirect()->route('homepage')->with('success', 'Successfully Paid.');
     }

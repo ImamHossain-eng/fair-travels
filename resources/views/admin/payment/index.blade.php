@@ -18,6 +18,7 @@
                     <th>Amount</th>
                     <th>Method</th>
                     <th>Status</th>
+                    <th>Paid for</th>
                     <th>Option</th>
                 </tr>
             </thead>
@@ -35,6 +36,7 @@
                             @else Confirmed
                             @endif
                         </td>
+                        <td>{{$payment->type}}</td>
                         <td>
                             @if($payment->status == false)
                                 <form action="{{route('admin.payment.confirm', $payment->id)}}" method="POST">

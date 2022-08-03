@@ -11,7 +11,7 @@ class InsuranceBook extends Component
 {
     public $regions;
     public $region;
-    public $price_per_day = 36;
+    public $price_per_day;
     public $starting_date;
     public $ending_date;
     public $no_of_days;
@@ -29,6 +29,14 @@ class InsuranceBook extends Component
             $this->email = auth()->user()->email;
             $this->mobile = auth()->user()->mobile;
         }  
+    }
+
+    public function loadPricePerDay(){
+        if($this->region == "Inside Country"){
+            $this->price_per_day = 150;
+        }else{
+            $this->price_per_day = 275;
+        }
     }
 
     public function loadNoOfDays(){

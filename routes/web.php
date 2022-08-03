@@ -61,6 +61,11 @@ Route::get('/insurance', [PagesController::class, 'insurance'])->name('insurance
 Route::get('/insurance/{id}/payment', [PagesController::class, 'insurance_payment'])->name('insurance.payment');
 Route::post('/insurance/{id}/payment', [PagesController::class, 'insurance_payment_store'])->name('insurance.payment.store');
 
+//Cruise Reservation
+Route::view('/cruise', 'pages.cruise.book')->name('cruise.create');
+Route::get('/cruise/{id}/payment', [PagesController::class, 'cruise_payment'])->name('cruise.payment');
+Route::post('/cruise/{id}/payment', [PagesController::class, 'cruise_payment_store'])->name('cruise.payment.store');
+
 Auth::routes();
  
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -88,6 +93,11 @@ Route::prefix('user')->middleware('user')->group(function () {
 
     //Insurance
     Route::get('/insurance', [UserController::class, 'insurance_index'])->name('user.insurance.index');
+
+    //Cruise Reservation
+    Route::get('/cruise', [UserController::class, 'cruise_index'])->name('user.cruise.index');
+
+
 
     
 });
@@ -147,9 +157,20 @@ Route::group(['prefix'=>'admin', 'middleware'=>'admin'], function() {
     Route::get('/money', [AdminController::class, 'money_request'])->name('admin.money.index');
     Route::put('/money/status/{id}', [AdminController::class, 'money_status'])->name('admin.money.status');
 
+    //Cruise trip info
+    Route::get('/ctrip', [AdminController::class, 'ctrip_index'])->name('admin.ctrip.index');
+    Route::view('/ctrip/create', 'admin.ctrip.create')->name('admin.ctrip.create');
+    Route::post('/ctrip', [AdminController::class, 'ctrip_store'])->name('admin.ctrip.store');
+    Route::delete('/ctrip/{id}', [AdminController::class, 'ctrip_delete'])->name('admin.ctrip.delete');
+    Route::get('/ctrip/{id}/edit', [AdminController::class, 'ctrip_edit'])->name('admin.ctrip.edit');
+    Route::put('/ctrip/{id}', [AdminController::class, 'ctrip_update'])->name('admin.ctrip.update');
+
     //message function
     Route::get('/messages', [AdminController::class, 'message_index'])->name('admin.message.index');
     Route::get('/message/{id}', [AdminController::class, 'message_show'])->name('admin.message.show');
+
+    //Hotel Service
+    Route::get('/hotel', [AdminController::class, 'hotel_index'])->name('admin.hotel.index');
 
 
 });

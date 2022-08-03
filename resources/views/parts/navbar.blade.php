@@ -34,7 +34,7 @@
                     <a class="dropdown-item" href="/foreign-exchange">FOREIGN EXCHANGE</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="/#">CRUISE RESERVATION</a>
+                    <a class="dropdown-item" href="/cruise">CRUISE RESERVATION</a>
                   </li>
                   <li>
                     <a class="dropdown-item" href="/transportation">TRANSPORTATION</a>

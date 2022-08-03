@@ -9,6 +9,7 @@ use App\Models\Payment;
 use App\Models\Hotel;
 use App\Models\Transport;
 use App\Models\Insurance;
+use App\Models\Cruise;
 
 
 class UserController extends Controller
@@ -22,7 +23,7 @@ class UserController extends Controller
         return view('user.money.index', compact('exchanges'));
     }
     public function payment_index(){
-        $payments = Payment::where('email', auth()->user()->email)->get();
+        $payments = Payment::where('email', auth()->user()->email)->latest()->get();
         return view('user.payment.index', compact('payments'));
     }
     public function hotel_index(){
@@ -34,12 +35,16 @@ class UserController extends Controller
         return view('user.hotel.show', compact('hotel'));
     }
     public function transport_index(){
-        $transports = Transport::where('email', auth()->user()->email)->get();
+        $transports = Transport::where('email', auth()->user()->email)->latest()->get();
         return view('user.transport.index', compact('transports'));
     }
     public function insurance_index(){
-        $insurances = Insurance::where('email', auth()->user()->email)->get();
+        $insurances = Insurance::where('email', auth()->user()->email)->latest()->get();
         return view('user.insurance.index', compact('insurances'));
+    }
+    public function cruise_index(){
+        $cruises = Cruise::where('email', auth()->user()->email)->latest()->get();
+        return view('user.cruise.index', compact('cruises'));
     }
     
 }

@@ -12,6 +12,8 @@ use App\Models\Exchange;
 use App\Models\Exchange_Book;
 use App\Models\Slider;
 use App\Models\Payment;
+use App\Models\CTrip;
+use App\Models\Hotel;
 
 use Image, File;
 
@@ -344,12 +346,64 @@ class AdminController extends Controller
             $payment->save();
 
             //Make the booking confirm
-            $book = Book::where('email', $payment->email)->where('payment', true)->where('status', false)->first();
-            if($book && $book->amount == $payment->amount){
-                $book->status = true;
-                $book->save();
-            }
+            // $book = Book::where('email', $payment->email)->where('payment', true)->where('status', false)->first();
+            // if($book && $book->amount == $payment->amount){
+            //     $book->status = true;
+            //     $book->save();
+            // }
         }
-        return redirect()->route('admin.payment.index')->with('success', 'Successfully confirm this payment and confirm the package boking as well.');
+        return redirect()->route('admin.payment.index')->with('success', 'Successfully confirm this payment.');
+    }
+    //Ctrip Functions
+    public function ctrip_index(){
+        $ctrips = CTrip::latest()->paginate(10);
+        return view('admin.ctrip.index', compact('ctrips'));
+    }
+    public function ctrip_store(Request $request){
+        $this->validate($request, [
+            'port' => 'required|string',
+            'date' => 'required|date',
+            'price' => 'required',
+            'info' => 'required'
+        ]);
+
+        $trip = new CTrip;
+        $trip->port = $request->port;
+        $trip->date = $request->date;
+        $trip->price = $request->price;
+        $trip->info = $request->info;
+        $trip->save();
+        return redirect()->route('admin.ctrip.index')->with('success', 'Successfully Inserted.');
+    }
+    public function ctrip_delete($id){
+        CTrip::find($id)->delete();
+        return redirect()->route('admin.ctrip.index')->with('error', 'Successfully Removed.');
+    }
+    public function ctrip_edit($id){
+        $trip = CTrip::find($id);
+        return view('admin.ctrip.edit', compact('trip'));
+    }
+    public function ctrip_update(Request $request, $id){
+        $this->validate($request, [
+            'port' => 'required|string',
+            'price' => 'required',
+            'info' => 'required'
+        ]);
+
+        $trip = CTrip::find($id);
+
+        $request->date == null ? $date = $trip->date : $date = $request->date;
+
+        $trip->port = $request->port;
+        $trip->date = $date;
+        $trip->price = $request->price;
+        $trip->info = $request->info;
+        $trip->save();
+        
+        return redirect()->route('admin.ctrip.index')->with('success', 'Successfully Updated.');
+    }
+    public function hotel_index(){
+        $hotels = Hotel::latest()->paginate(10);
+        return view('admin.service.hotel', compact('hotels'));
     }
 }

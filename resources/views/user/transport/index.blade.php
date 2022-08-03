@@ -17,6 +17,7 @@
                     <th>No of Days</th>
                     <th>Amount</th>
                     <th>Payment</th>
+                    <th>Option</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +30,13 @@
                         <td> {{$transport->no_of_days}} </td>
                         <td> {{number_format($transport->amount, 2)}} </td>
                         <td>@if($transport->payment == false) Pending @else Confirmed @endif</td>
+                        <td>
+                            @if($transport->payment == false)
+                            <a href="/transportation/{{$transport->id}}/payment" title="Pay for this booking" class="btn btn-success">
+                                <i class="fa fa-credit-card"></i>
+                            </a>
+                        @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
